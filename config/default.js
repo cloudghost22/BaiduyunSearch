@@ -7,6 +7,6 @@ module.exports={
         "host":"localhost",
         "user":"root",
         "password":"qazwsx",
-        "database":"test"
+        "database":"baiduyun"
     }
 };

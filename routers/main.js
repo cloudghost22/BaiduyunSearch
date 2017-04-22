@@ -17,7 +17,7 @@ router.post('/', function (req, res, next) {
     searchJson(searchvalue)
         .then((data) => {
             console.log(data[0][0]);
-            // console.log(data[1]);
+            console.log(data[1]);
         });
 });
 
