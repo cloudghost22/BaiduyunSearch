@@ -39,9 +39,9 @@ let resultCount = function (searchValue) {
     let queryStr = ``;
 
     if(searchValue.length == 1){
-        queryStr= `select count(1) from share WHERE title like '%${searchValue}%' limit 20;`;
+        queryStr= `select count(1) as total from share WHERE title like '%${searchValue}%' limit 20;`;
     }else {
-        queryStr= `select count(1)  from share WHERE MATCH(title) AGAINST('${searchValue}' IN NATURAL LANGUAGE MODE) limit 20;`;
+        queryStr= `select count(1) as total from share WHERE MATCH(title) AGAINST('${searchValue}' IN NATURAL LANGUAGE MODE) limit 20;`;
     }
 
     pool.getConnection((err, conn) => {
@@ -62,5 +62,20 @@ let searchJson = function (searchValue) {
     ]);
 };
 
+let viewShare = function (shareid) {
+    let deferred = q.defer();
+    let queryStr = `select * from share where shareid = ${shareid} limit 1;`;
+    pool.getConnection((err, conn) => {
+        "use strict";
+        if (err) deferred.reject(err);
+        conn.query(queryStr, (err, result) => {
+            conn.release();
+            deferred.resolve(result);
+        });
+    });
+    return deferred.promise;
+};
+
 module.exports.searchJson = searchJson;
 module.exports.search = search;
+module.exports.viewShare = viewShare;
