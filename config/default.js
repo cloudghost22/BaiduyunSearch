@@ -8,5 +8,6 @@ module.exports={
         "user":"root",
         "password":"qazwsx",
         "database":"baiduyun"
-    }
+    },
+    pageNumber:15
 };

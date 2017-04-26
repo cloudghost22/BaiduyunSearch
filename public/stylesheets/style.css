@@ -15,3 +15,7 @@ a:hover {
     background-color: #4fc08d !important;
     color: #fff !important;
 }
+
+.search-value{
+    display: none;
+}

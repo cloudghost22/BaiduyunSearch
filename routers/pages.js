@@ -1,7 +1,6 @@
 /**
- * Created by lwy on 2017-04-21.
+ * Created by linweiyun on 2017/4/26.
  */
-
 let express = require('express');
 let router = express.Router();
 let searchJson = require('../db/dbHelper').searchJson;
@@ -9,28 +8,21 @@ let search = require('../db/dbHelper').search;
 
 router.get('/', function (req, res, next) {
     // res.send('hello, baiduyunsearch');
-    // console.log(req.query);
+    console.log(req.query);
     let searchValue = req.query.search;
+    let searchIndex = req.query.idx;
     if(searchValue){
-        searchJson(searchValue)
+        search(searchValue,searchIndex)
             .then((result) => {
-                result.searchValue = searchValue;
+                // console.log(result);
                 // console.log(result[0][1]);
                 // console.log(result[1][0].total);
-                // console.log(result.searchValue);
-                res.render('main', {results: result});
+                res.send(result);
             });
     }else {
         res.render('main');
     }
 
 });
-
-router.post('/', function (req, res, next) {
-    let searchvalue = req.fields.searchValue;
-    // console.log(searchvalue);
-    res.redirect(`/?search=${searchvalue}`);
-});
-
 
 module.exports = router;
