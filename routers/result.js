@@ -5,13 +5,16 @@
 var express = require('express');
 var router = express.Router();
 let viewShare = require('../db/dbHelper').viewShare;
+let parseShare = require('../common/func').parseShare;
 
 router.get('/', function (req, res) {
     let shareid = req.query.view;
+    // console.log(shareid);
     viewShare(shareid)
         .then((result) => {
-            console.log(result[0].title);
-            res.render('result', {results: result});
+            let parseResult = parseShare(result);
+            // console.log(parseResult);
+            res.render('result', {results: parseResult});
         });
 });
 

@@ -8,6 +8,9 @@ html
         script(src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js")
         script(src="//cdn.bootcss.com/semantic-ui/2.2.10/semantic.min.js")
     body
-        include ./nav
-        block content
-        include ./footer
+        div(id='wrapper')
+            include ./nav
+            div(class='first-content')
+                block content
+        div(class='footer')
+            include ./footer

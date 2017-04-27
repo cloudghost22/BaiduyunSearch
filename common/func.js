@@ -1,0 +1,43 @@
+/**
+ * Created by linweiyun on 2017/4/27.
+ */
+
+let parseShare = function (json) {
+    let tempJson = {};
+    let cate = new Map();
+    cate.set(1, '视频').set(2, '音乐').set(3, '图片').set(4, '文档').set(6, '其他');
+    let idx = json[0].category;
+    tempJson.title = json[0].title;
+    tempJson.username = json[0].username;
+    tempJson.sharetime = timeStamp2String(json[0].feed_time);
+    tempJson.category = cate.get(idx);
+    tempJson.size = json[0].isdir == 0 ? bit2Size(json[0].size) : '--';
+    tempJson.shareid = json[0].shareid;
+    tempJson.uk = json[0].uk;
+    return tempJson;
+};
+
+let timeStamp2String = function (time) {
+    var datetime = new Date();
+    datetime.setTime(time);
+    var year = datetime.getFullYear();
+    var month = datetime.getMonth() + 1;
+    var date = datetime.getDate();
+    return year + "-" + month + "-" + date;
+};
+
+let bit2Size = function (size) {
+    let len = size.toString().length;
+    // console.log(len);
+    if (len >= 10) {
+        return Math.round(parseFloat(size*1 / 1024 / 1024 / 1024) * 10) / 10 + 'G';
+    } else if (len >= 7) {
+        return Math.round(parseFloat(size*1 / 1024 / 1024) * 10) / 10 + 'MB';
+    } else if (len >= 4) {
+        return Math.round(parseFloat(size*1 / 1024) * 10) / 10 + 'KB';
+    } else {
+        return Math.round(parseFloat(size*1) * 10) / 10 + 'B';
+    }
+};
+
+module.exports.parseShare = parseShare;

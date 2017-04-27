@@ -3,18 +3,11 @@ extends layout
 block content
     div(class='ui grid')
         div(class='ten wide column centered ')
-            form(class='ui form' method='post')
-                div(class='ui grid')
-                    div(class='twelve wide column')
-                        if results
-                            input(value=`${results.searchValue} ` type='text' name='searchValue' id='searchValue')
-                        else
-                            input(placeholder='搜索你想找的' type='text' name='searchValue' id='searchValue')
-                    div(class='four wide column')
-                       input(type='submit' class='ui button' id='searchBtn' value='搜索')
+            include ./component/search
 
     if results
         <div class="ui horizontal divider">搜索结果</div>
         div(class='ui huge selection celled list' id='tableList')
             include ./component/table
+            div(class='')
         include ./component/pages

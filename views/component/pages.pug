@@ -1,7 +1,9 @@
-div(class='ui middle aligned grid')
+div(class='ui middle aligned grid' id='pagesDiv')
     div(class='two wide column')
-        div(class='ui centered header') 找到：#{results[1][0].total}
+        div(class='ui centered header') 找到：
+            span(id='totalResult') #{results[1][0].total}
     div(class='four wide column')
-        button(class="ui negative basic button" id='homePage' data-value='0') 首页
-        button(class="ui negative basic button" id='prePage' data-value='0') 上一页
+        button(class="ui negative basic button" id='homePage' data-value='0' disabled='true') 首页
+        button(class="ui negative basic button" id='prePage' data-value='0' disabled='true') 上一页
         button(class="ui negative basic button" id='nextPage' data-value='1') 下一页
+div(class='divider')
