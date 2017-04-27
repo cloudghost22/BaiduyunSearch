@@ -1,16 +1,19 @@
-table(class="ui red celled structured table" id='resultList')
-    thead
-        tr
-            th(colspan="2")
-                div(class='ui header') #{results.title}
-    tbody
-        tr
-            td 分享人：#{results.username}
-            td 分享时间：#{results.sharetime}
-        tr
-            td 文件类型：#{results.category}
-            td 文件大小：#{results.size}
-        tr
-            td(colspan="2")
-                span 下载地址:
-                a(class='text' href=`https://pan.baidu.com/share/link?uk=${results.uk}&third=0&shareid=${results.shareid}` target='_blank') #{results.title}
+div(id='shareDiv')
+    div(id='shareTable')
+        table(class="ui red celled structured table")
+            thead
+                tr
+                    th(colspan="2")
+                        div(class='ui header') #{results.title}
+            tbody
+                tr
+                    td 分享人：#{results.username}
+                    td 分享时间：#{results.sharetime}
+                tr
+                    td 文件类型：#{results.category}
+                    td 文件大小：#{results.size}
+                tr
+                    td(colspan="2")
+                        span 下载地址:
+                        a(class='text' href=`https://pan.baidu.com/share/link?uk=${results.uk}&third=0&shareid=${results.shareid}` target='_blank') #{results.title}
+    div(id='downloadDesc')
