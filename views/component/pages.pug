@@ -1,9 +1,20 @@
-div(class='ui middle aligned grid' id='pagesDiv')
-    div(class='two wide column')
-        div(class='ui centered header') 找到：
-            span(id='totalResult') #{results[1][0].total}
-    div(class='six wide column')
-        button(class="ui negative basic button" id='homePage' data-value='0' disabled='true') 首页
-        button(class="ui negative basic button" id='prePage' data-value='0' disabled='true') 上一页
-        button(class="ui negative basic button" id='nextPage' data-value='1') 下一页
-div(class='dividerPages')
+//div(class='ui middle aligned grid' id='pagesDiv')
+//    div(class='two wide column')
+//        div(class='ui centered header') 找到：
+//            span(id='totalResult') #{results[1][0].total}
+//    div(class='six wide column')
+//        button(class="ui negative basic button" id='homePage' data-value='0' disabled='true') 首页
+//        button(class="ui negative basic button" id='prePage' data-value='0' disabled='true') 上一页
+//        button(class="ui negative basic button" id='nextPage' data-value='1') 下一页
+//div(class='dividerPages')
+div(class='textCenter')
+    span 共找到：
+    span(id='totalResult') #{results[1][0].total}
+    span 条记录
+
+div(class="ui right floated pagination menu")
+    a(class="item" id='homePage' data-value='0' style='display:none;') 第一页
+    a(class="icon item" id='prePage' data-value='0' style='display:none;')
+        i(class="left chevron icon")
+    a(class="icon item" id='nextPage' data-value='1')
+        i(class="right chevron icon")

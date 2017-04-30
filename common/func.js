@@ -52,7 +52,6 @@ let parseAllShare = function (jsonArr) {
 };
 
 let parseShareOne = function (json) {
-
     let tempJson = {};
     let cate = new Map();
     cate.set(1, '视频').set(2, '音乐').set(3, '图片').set(4, '文档').set(6, '其他');
@@ -64,7 +63,6 @@ let parseShareOne = function (json) {
     tempJson.size = json.isdir == 0 ? bit2Size(json.size) : '--';
     tempJson.shareid = json.shareid;
     tempJson.uk = json.uk;
-    // console.log(tempJson);
     return tempJson;
 };
 

@@ -11,9 +11,9 @@ let q = require('q');
 
 let pool = mysql.createPool(config.mysql);
 
-let search = function (searchValue,idx=0) {
+let search = function (searchValue,idx=1) {
     let deferred = q.defer();
-
+    idx = idx - 1;
     let queryStr = ``;
     let offset = idx * config.pageNumber;
     if(searchValue.length == 1){
