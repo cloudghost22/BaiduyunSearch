@@ -5,17 +5,17 @@ div(class='resultDiv')
     table(class="ui red table" id='resultList')
         thead
             tr
-                th 文件名称
-                th 文件类型
-                th 文件大小
+                th(class='ten wide') 文件名称
+                th(class='three wide center aligned')  文件类型
+                th(class='three wide center aligned')  文件大小
         tbody
             each result in results[0]
                 tr
                     td
                         a(class='text' href=`/result/?view=${result.shareid}` target='_blank') #{result.title}
-                    td
+                    td(class='center aligned')
                         a(class='text' href=`/result/?view=${result.shareid}` target='_blank') #{result.category}
-                    td
+                    td(class='center aligned')
                         a(class='text' href=`/result/?view=${result.shareid}` target='_blank') #{result.size}
         tfoot
             tr
