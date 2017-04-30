@@ -88,7 +88,7 @@ $('#searchBtn').on("click", function () {
     var trimValue = $.trim(sValue);
     if (trimValue.length == 0) {
         alert('请输入搜索的内容！');
-        return;
+        return false;
     }
     else {
         $('#search-value').text(sValue);

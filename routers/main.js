@@ -6,6 +6,7 @@ let express = require('express');
 let router = express.Router();
 let searchJson = require('../db/dbHelper').searchJson;
 let search = require('../db/dbHelper').search;
+let parseAllShare = require('../common/func').parseAllShare;
 
 router.get('/', function (req, res, next) {
     // res.send('hello, baiduyunsearch');
@@ -15,7 +16,9 @@ router.get('/', function (req, res, next) {
         searchJson(searchValue)
             .then((result) => {
                 result.searchValue = searchValue;
-                // console.log(result[0][1]);
+                result[0] = parseAllShare(result[0]);
+                // console.log(result[0]);
+                // console.log(parseAllShare(result[0]));
                 // console.log(result[1][0].total);
                 // console.log(result.searchValue);
                 res.render('main', {results: result});

@@ -65,7 +65,7 @@ a:hover {
     color:#666 !important;
 }
 
-.divider{
+.dividerPages{
     height: 40px;
     visibility: hidden;
 }
@@ -100,4 +100,18 @@ a:hover {
     float: left;
     background-color: #f2f2f2;
     margin: 2em auto 0 1em;
+}
+
+.logo-box{
+    width: 100%;
+    height: 70%;
+    margin-top: 9%;
+    margin-bottom: 10px;
+}
+.logo-img{
+    margin: 0 auto;
+    width: 300px;
+}
+.logomin-img{
+    float: right;
 }
