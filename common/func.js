@@ -15,7 +15,7 @@ let parseShare = function (json) {
     tempJson.size = json[0].isdir == 0 ? bit2Size(json[0].size) : '--';
     tempJson.shareid = json[0].shareid;
     tempJson.uk = json[0].uk;
-    console.log(tempJson);
+    // console.log(tempJson);
     return tempJson;
 };
 
@@ -64,7 +64,7 @@ let parseShareOne = function (json) {
     tempJson.size = json.isdir == 0 ? bit2Size(json.size) : '--';
     tempJson.shareid = json.shareid;
     tempJson.uk = json.uk;
-    console.log(tempJson);
+    // console.log(tempJson);
     return tempJson;
 };
 
