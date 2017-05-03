@@ -3,6 +3,7 @@
  */
 
 let parseShare = function (json) {
+
     let tempJson = {};
     let cate = new Map();
     cate.set(1, '视频').set(2, '音乐').set(3, '图片').set(4, '文档').set(6, '其他');
@@ -14,6 +15,7 @@ let parseShare = function (json) {
     tempJson.size = json[0].isdir == 0 ? bit2Size(json[0].size) : '--';
     tempJson.shareid = json[0].shareid;
     tempJson.uk = json[0].uk;
+    // console.log(tempJson);
     return tempJson;
 };
 
@@ -40,4 +42,29 @@ let bit2Size = function (size) {
     }
 };
 
+let parseAllShare = function (jsonArr) {
+    let parseJsonArr = [];
+    for(let i=0;i<jsonArr.length;i++){
+        parseJsonArr[i] = parseShareOne(jsonArr[i]);
+        // console.log(parseJsonArr[i]);
+    }
+    return parseJsonArr;
+};
+
+let parseShareOne = function (json) {
+    let tempJson = {};
+    let cate = new Map();
+    cate.set(1, '视频').set(2, '音乐').set(3, '图片').set(4, '文档').set(6, '其他');
+    let idx = json.category;
+    tempJson.title = json.title;
+    tempJson.username = json.username;
+    tempJson.sharetime = timeStamp2String(json.feed_time);
+    tempJson.category = cate.get(idx);
+    tempJson.size = json.isdir == 0 ? bit2Size(json.size) : '--';
+    tempJson.shareid = json.shareid;
+    tempJson.uk = json.uk;
+    return tempJson;
+};
+
 module.exports.parseShare = parseShare;
+module.exports.parseAllShare = parseAllShare;
