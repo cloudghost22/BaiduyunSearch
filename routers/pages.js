@@ -8,7 +8,7 @@ let search = require('../db/dbHelper').search;
 
 router.get('/', function (req, res, next) {
     // res.send('hello, baiduyunsearch');
-    console.log(req.query)
+    // console.log(req.query)
     let searchValue = req.query.search;
     let searchIndex = req.query.idx;
     if(searchValue){

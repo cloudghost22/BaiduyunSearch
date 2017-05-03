@@ -65,7 +65,7 @@ a:hover {
     color:#666 !important;
 }
 
-.divider{
+.myDivider{
     height: 40px;
     visibility: hidden;
 }
