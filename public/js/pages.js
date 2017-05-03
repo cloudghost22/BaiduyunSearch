@@ -97,7 +97,7 @@ $('#searchBtn').on("click", function () {
         return false;
     }
     else {
-        $('#search-value').text(sValue);
+        $('#search-value').text(trimValue);
     }
 });
 
