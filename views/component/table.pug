@@ -12,7 +12,7 @@ div(class='resultDiv')
             each result in results[0]
                 tr
                     td
-                        a(class='text' href=`/result/?view=${result.shareid}` target='_blank') #{result.title}
+                        a(class='text' href=`/result/?view=${result.ID}` target='_blank') #{result.title}
                     td(class='center aligned') #{result.category}
                     td(class='center aligned') #{result.size}
         tfoot

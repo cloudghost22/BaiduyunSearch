@@ -51,18 +51,21 @@ let parseAllShare = function (jsonArr) {
     return parseJsonArr;
 };
 
-let parseShareOne = function (json) {
+let parseShareOne = function (json,flag=0) {
     let tempJson = {};
     let cate = new Map();
     cate.set(1, '视频').set(2, '音乐').set(3, '图片').set(4, '文档').set(6, '其他');
     let idx = json.category;
+    tempJson.ID = json.ID;
     tempJson.title = json.title;
-    tempJson.username = json.username;
-    tempJson.sharetime = timeStamp2String(json.feed_time);
     tempJson.category = cate.get(idx);
     tempJson.size = json.isdir == 0 ? bit2Size(json.size) : '--';
-    tempJson.shareid = json.shareid;
-    tempJson.uk = json.uk;
+    if(flag){
+        tempJson.shareid = json.shareid;
+        tempJson.uk = json.uk;
+        tempJson.username = json.username;
+        tempJson.sharetime = timeStamp2String(json.feed_time);
+    }
     return tempJson;
 };
 
