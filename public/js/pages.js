@@ -10,7 +10,7 @@ $('#homePage').on("click", function () {
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
             for (var i = 0; i < msg.length; i++) {
-                var str = "<tr><td><a class=\'text\' href=\"/result/?view=$" + msg[i].shareid + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].shareid + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
                 str += "<td class=\'center aligned\'>"+msg[i].category+"</td>";
                 str += "<td class=\'center aligned\'>"+msg[i].size+"</td></tr>";
                 $('#resultList tbody').append(str);
@@ -36,7 +36,7 @@ $('#prePage').on("click", function () {
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
             for (var i = 0; i < msg.length; i++) {
-                var str = "<tr><td><a class=\'text\' href=\"/result/?view=$" + msg[i].shareid + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].shareid + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
                 str += "<td class=\'center aligned\'>"+msg[i].category+"</td>";
                 str += "<td class=\'center aligned\'>"+msg[i].size+"</td></tr>";
                 $('#resultList tbody').append(str);
