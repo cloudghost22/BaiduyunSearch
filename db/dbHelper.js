@@ -11,15 +11,16 @@ let q = require('q');
 
 let pool = mysql.createPool(config.mysql);
 
-let search = function (searchValue,idx=1) {
+let search = function (searchValue, idx = 1) {
     let deferred = q.defer();
+    let searchValueStr = convertQueryStr(searchValue);
     idx = idx - 1;
     let queryStr = ``;
     let offset = idx * config.pageNumber;
-    if(searchValue.length == 1){
-        queryStr= `select * from share WHERE title like '%${searchValue}%' limit ${offset},${config.pageNumber};`;
-    }else {
-        queryStr= `select * from share WHERE MATCH(title) AGAINST('${searchValue}' IN NATURAL LANGUAGE MODE) limit ${offset},${config.pageNumber};`;
+    if (searchValueStr.length == 1) {
+        queryStr = `select * from share WHERE title like '%${searchValueStr}%' limit ${offset},${config.pageNumber};`;
+    } else {
+        queryStr = `select * from share WHERE MATCH(title) AGAINST('${searchValueStr}' IN NATURAL LANGUAGE MODE) limit ${offset},${config.pageNumber};`;
     }
 
     pool.getConnection((err, conn) => {
@@ -36,13 +37,13 @@ let search = function (searchValue,idx=1) {
 
 let resultCount = function (searchValue) {
     let deferred = q.defer();
-
+    let searchValueStr = convertQueryStr(searchValue);
     let queryStr = ``;
 
-    if(searchValue.length == 1){
-        queryStr= `select count(1) as total from share WHERE title like '%${searchValue}%' limit ${config.pageNumber};`;
-    }else {
-        queryStr= `select count(1) as total from share WHERE MATCH(title) AGAINST('${searchValue}' IN NATURAL LANGUAGE MODE) limit ${config.pageNumber};`;
+    if (searchValueStr.length == 1) {
+        queryStr = `select count(1) as total from share WHERE title like '%${searchValueStr}%' limit ${config.pageNumber};`;
+    } else {
+        queryStr = `select count(1) as total from share WHERE MATCH(title) AGAINST('${searchValueStr}' IN NATURAL LANGUAGE MODE) limit ${config.pageNumber};`;
     }
 
     pool.getConnection((err, conn) => {
@@ -75,6 +76,21 @@ let viewShare = function (shareid) {
         });
     });
     return deferred.promise;
+};
+
+let convertQueryStr = function (queryString) {
+    let qs = queryString.trim().substr(0, 30);
+    let qString = qs.replace(/[:：\s,，。./]/g, "|").split('|');
+    // console.log(qString);
+    let qStringArr = '';
+    for (let i of qString) {
+        if (i) {
+            // console.log(i);
+            qStringArr += (qStringArr.length > 0 ? ' ' : '') + i;
+        }
+    }
+    // console.log(qStringArr);
+    return qStringArr;
 };
 
 module.exports.searchJson = searchJson;
