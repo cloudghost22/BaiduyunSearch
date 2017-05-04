@@ -61,10 +61,10 @@ let parseShareOne = function (json,flag=0) {
     tempJson.title = json.title;
     tempJson.category = cate.get(idx);
     tempJson.size = json.isdir == 0 ? bit2Size(json.size) : '--';
+    tempJson.username = json.username;
     if(flag){
         tempJson.shareid = json.shareid;
         tempJson.uk = json.uk;
-        tempJson.username = json.username;
         tempJson.sharetime = timeStamp2String(json.feed_time);
     }
     return tempJson;

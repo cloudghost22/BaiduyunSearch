@@ -11,6 +11,7 @@ $('#homePage').on("click", function () {
             $('#resultList').append('<tbody></tbody>');
             for (var i = 0; i < msg.length; i++) {
                 var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                str += "<td class=\'center aligned\'>"+msg[i].username+"</td>";
                 str += "<td class=\'center aligned\'>"+msg[i].category+"</td>";
                 str += "<td class=\'center aligned\'>"+msg[i].size+"</td></tr>";
                 $('#resultList tbody').append(str);
@@ -37,6 +38,7 @@ $('#prePage').on("click", function () {
             $('#resultList').append('<tbody></tbody>');
             for (var i = 0; i < msg.length; i++) {
                 var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                str += "<td class=\'center aligned\'>"+msg[i].username+"</td>";
                 str += "<td class=\'center aligned\'>"+msg[i].category+"</td>";
                 str += "<td class=\'center aligned\'>"+msg[i].size+"</td></tr>";
                 $('#resultList tbody').append(str);
@@ -71,6 +73,7 @@ $('#nextPage').on("click", function () {
                 $('#resultList').append('<tbody></tbody>');
                 for (var i = 0; i < msg.length; i++) {
                     var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                    str += "<td class=\'center aligned\'>"+msg[i].username+"</td>";
                     str += "<td class=\'center aligned\'>"+msg[i].category+"</td>";
                     str += "<td class=\'center aligned\'>"+msg[i].size+"</td></tr>";
                     $('#resultList tbody').append(str);
