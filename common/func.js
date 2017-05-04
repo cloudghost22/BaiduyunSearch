@@ -6,7 +6,8 @@ let parseShare = function (json) {
 
     let tempJson = {};
     let cate = new Map();
-    cate.set(1, '视频').set(2, '音乐').set(3, '图片').set(4, '文档').set(6, '其他');
+    // cate.set(1, '视频').set(2, '音乐').set(3, '图片').set(4, '文档').set(6, '其他');
+    cate.set(1, '视频').set(2, '音乐').set(3, '图片').set(4, '文档').set(5,'应用').set(6, '其他').set(7, '下载文件');
     let idx = json[0].category;
     tempJson.title = json[0].title;
     tempJson.username = json[0].username;
