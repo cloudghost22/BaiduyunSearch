@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
         searchJson(searchValue)
             .then((result) => {
                 result.searchValue = searchValue;
-                result[0] = parseAllShare(result[0]);
+                result[0] = parseAllShare(result[0],searchValue);
                 res.render('main', {results: result});
             });
     }else {

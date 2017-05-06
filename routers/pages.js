@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
     if(searchValue){
         search(searchValue,searchIndex)
             .then((result) => {
-                result = parseAllShare(result);
+                result = parseAllShare(result,searchValue);
                 res.send(result);
             });
     }else {

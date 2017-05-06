@@ -139,3 +139,7 @@ a:hover {
 #resultList td a{
     font-size: 20px;
 }
+em{
+    font-style: normal;
+    color: #c00;
+}

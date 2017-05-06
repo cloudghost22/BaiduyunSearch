@@ -1,3 +1,4 @@
+
 div(class='search-value' style='display:none;' id='search-value') #{results.searchValue}
 div(class='search-value' style='display:none;' id='pageNumber') 1
 
@@ -13,7 +14,9 @@ div(class='resultDiv')
             each result in results[0]
                 tr
                     td
-                        a(class='text' href=`/result/?view=${result.ID}` target='_blank') #{result.title}
+                        - var title = result.title;
+                        a(class='text' href=`/result/?view=${result.ID}` target='_blank')
+                            !=  title
                     td(class='center aligned') #{result.username}
                     td(class='center aligned') #{result.category}
                     td(class='center aligned') #{result.size}
