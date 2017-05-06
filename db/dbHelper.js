@@ -22,7 +22,6 @@ let search = function (searchValue, idx = 1) {
     } else {
         queryStr = `select * from share WHERE MATCH(title) AGAINST('${searchValueStr}' IN NATURAL LANGUAGE MODE) limit ${offset},${config.pageNumber};`;
     }
-
     pool.getConnection((err, conn) => {
         "use strict";
         if (err) deferred.reject(err);
@@ -39,18 +38,18 @@ let resultCount = function (searchValue) {
     let deferred = q.defer();
     let searchValueStr = convertQueryStr(searchValue);
     let queryStr = ``;
-
     if (searchValueStr.length == 1) {
         queryStr = `select count(*) as total from (select 1 as total from share WHERE title like '%${searchValueStr}%' limit 1000) xx;`;
     } else {
         queryStr = `select count(*) as total from (select 1 as c from share WHERE MATCH(title) AGAINST('${searchValueStr}' IN NATURAL LANGUAGE MODE) limit 1000) xx;`;
     }
-
+    saveSearch(searchValueStr);
     pool.getConnection((err, conn) => {
         "use strict";
         if (err) deferred.reject(err);
         conn.query(queryStr, (err, result) => {
             conn.release();
+            // console.log(result);
             deferred.resolve(result);
         });
     });
@@ -91,6 +90,23 @@ let convertQueryStr = function (queryString) {
     }
     // console.log(qStringArr);
     return qStringArr;
+};
+
+let saveSearch = function (searchValue) {
+    let deferred = q.defer();
+    let searchValueStr = convertQueryStr(searchValue);
+    let queryStr = `INSERT INTO search(search) VALUES ('${searchValueStr}');`;
+    // console.log(queryStr);
+    pool.getConnection((err, conn) => {
+        "use strict";
+        if (err) deferred.reject(err);
+        conn.query(queryStr, (err, result) => {
+            conn.release();
+            // console.log(result);
+            deferred.resolve(result);
+        });
+    });
+    return deferred.promise;
 };
 
 module.exports.searchJson = searchJson;
