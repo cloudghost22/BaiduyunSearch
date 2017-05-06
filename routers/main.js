@@ -9,19 +9,12 @@ let search = require('../db/dbHelper').search;
 let parseAllShare = require('../common/func').parseAllShare;
 
 router.get('/', function (req, res, next) {
-    // res.send('hello, baiduyunsearch');
-    // console.log(req.query);
     let searchValue = req.query.search;
     if(searchValue){
         searchJson(searchValue)
             .then((result) => {
-                // console.log(result[0]);
                 result.searchValue = searchValue;
                 result[0] = parseAllShare(result[0]);
-                // console.log(result[0]);
-                // console.log(parseAllShare(result[0]));
-                // console.log(result[1][0].total);
-                // console.log(result.searchValue);
                 res.render('main', {results: result});
             });
     }else {
@@ -32,7 +25,6 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     let searchvalue = req.fields.searchValue;
-    // console.log(searchvalue);
     res.redirect(`/?search=${searchvalue}`);
 });
 

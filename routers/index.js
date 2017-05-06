@@ -1,7 +1,4 @@
 module.exports = function (app) {
-/*    app.get("/",function (req,res) {
-        res.redirect("/main");
-    });*/
     app.use("/",require('./main'));
     app.use("/result",require('./result'));
     app.use("/main",require('./main'));

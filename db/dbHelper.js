@@ -43,13 +43,13 @@ let resultCount = function (searchValue) {
     } else {
         queryStr = `select count(*) as total from (select 1 as c from share WHERE MATCH(title) AGAINST('${searchValueStr}' IN NATURAL LANGUAGE MODE) limit 1000) xx;`;
     }
+    //save the search value
     saveSearch(searchValueStr);
     pool.getConnection((err, conn) => {
         "use strict";
         if (err) deferred.reject(err);
         conn.query(queryStr, (err, result) => {
             conn.release();
-            // console.log(result);
             deferred.resolve(result);
         });
     });
@@ -84,11 +84,9 @@ let convertQueryStr = function (queryString) {
     let qStringArr = '';
     for (let i of qString) {
         if (i) {
-            // console.log(i);
             qStringArr += (qStringArr.length > 0 ? ' ' : '') + i;
         }
     }
-    // console.log(qStringArr);
     return qStringArr;
 };
 
@@ -96,13 +94,11 @@ let saveSearch = function (searchValue) {
     let deferred = q.defer();
     let searchValueStr = convertQueryStr(searchValue);
     let queryStr = `INSERT INTO search(search) VALUES ('${searchValueStr}');`;
-    // console.log(queryStr);
     pool.getConnection((err, conn) => {
         "use strict";
         if (err) deferred.reject(err);
         conn.query(queryStr, (err, result) => {
             conn.release();
-            // console.log(result);
             deferred.resolve(result);
         });
     });
