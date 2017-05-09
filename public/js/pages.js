@@ -104,3 +104,10 @@ $('#searchBtn').on("click", function () {
     }
 });
 
+$('.filterSpan').on('mouseenter',function () {
+   $(this).css("background-color","yellow");
+});
+
+$('.filterSpan').on('mouseleave',function () {
+    $(this).css("background-color","");
+});
