@@ -10,3 +10,9 @@ ALTER TABLE share ENABLE KEYS;
 
 #REPAIR TABLE `share` 修复表 
 #OPTIMIZE TABLE `share` 优化表
+
+//查看创建表语句
+show create table share;
+
+//查看索引
+show index from share;
