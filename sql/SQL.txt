@@ -1,0 +1,12 @@
+//创建全文索引
+ALTER TABLE share ADD FULLTEXT INDEX ft_index (title) WITH PARSER ngram;
+
+//更新数据
+insert into share(category,feed_time,isdir,server_filename,size,saveTime,shareid,shorturl,title,uk,username) SELECT category,feed_time,isdir,server_filename,size,saveTime,shareid,shorturl,title,uk,username FROM share_new;
+
+//索引停止和启用
+ALTER TABLE share DISABLE KEYS;
+ALTER TABLE share ENABLE KEYS;
+
+#REPAIR TABLE `share` 修复表 
+#OPTIMIZE TABLE `share` 优化表
