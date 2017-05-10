@@ -6,18 +6,7 @@ block content
 
     if results
         div(class="ui horizontal divider") 搜索结果
-        div(class='filterDiv')
-            table(class='ui celled table')
-                tr
-                    td
-                        span(id='filterText') 筛选:
-                        span(class='filterSpan') 视频
-                        span(class='filterSpan') 音乐
-                        span(class='filterSpan') 图片
-                        span(class='filterSpan') 文档
-                        span(class='filterSpan') 应用
-                        span(class='filterSpan') 下载
-                        span(class='filterSpan') 其他
+        include ./component/filter
         div(class='ui huge selection celled list' id='tableList')
             include ./component/table
             div(class='')
