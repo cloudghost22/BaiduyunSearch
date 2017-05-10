@@ -11,16 +11,18 @@ let q = require('q');
 
 let pool = mysql.createPool(config.mysql);
 
-let search = function (searchValue, idx = 1) {
+let search = function (searchValue, idx = 1,filterValue = 9) {
     let deferred = q.defer();
     let searchValueStr = convertQueryStr(searchValue);
     idx = idx - 1;
     let queryStr = ``;
     let offset = idx * config.pageNumber;
+    // console.log('filterValue'+filterValue);
+    let filterValueStr = (filterValue/1) >7 ? '1=1':(`category = ${filterValue/1}`);
     if (searchValueStr.length == 1) {
-        queryStr = `select * from share WHERE title like '%${searchValueStr}%' limit ${offset},${config.pageNumber};`;
+        queryStr = `select * from share WHERE ${filterValueStr} and title like '%${searchValueStr}%' limit ${offset},${config.pageNumber};`;
     } else {
-        queryStr = `select * from share WHERE MATCH(title) AGAINST('${searchValueStr}' IN NATURAL LANGUAGE MODE) limit ${offset},${config.pageNumber};`;
+        queryStr = `select * from share WHERE ${filterValueStr} and MATCH(title) AGAINST('${searchValueStr}' IN NATURAL LANGUAGE MODE) limit ${offset},${config.pageNumber};`;
     }
     pool.getConnection((err, conn) => {
         "use strict";
@@ -34,14 +36,15 @@ let search = function (searchValue, idx = 1) {
     return deferred.promise;
 };
 
-let resultCount = function (searchValue) {
+let resultCount = function (searchValue,filterValue = 9) {
     let deferred = q.defer();
     let searchValueStr = convertQueryStr(searchValue);
+    let filterValueStr = (filterValue/1) >7 ? '1=1':(`category = ${filterValue/1}`);
     let queryStr = ``;
     if (searchValueStr.length == 1) {
-        queryStr = `select count(*) as total from (select 1 as total from share WHERE title like '%${searchValueStr}%' limit 1000) xx;`;
+        queryStr = `select count(*) as total from (select 1 as total from share WHERE ${filterValueStr} and title like '%${searchValueStr}%' limit 1000) xx;`;
     } else {
-        queryStr = `select count(*) as total from (select 1 as c from share WHERE MATCH(title) AGAINST('${searchValueStr}' IN NATURAL LANGUAGE MODE) limit 1000) xx;`;
+        queryStr = `select count(*) as total from (select 1 as c from share WHERE ${filterValueStr} and MATCH(title) AGAINST('${searchValueStr}' IN NATURAL LANGUAGE MODE) limit 1000) xx;`;
     }
     //save the search value
     saveSearch(searchValueStr);
@@ -56,10 +59,11 @@ let resultCount = function (searchValue) {
     return deferred.promise;
 };
 
-let searchJson = function (searchValue) {
+let searchJson = function (searchValue,filterValue = 9) {
+    // console.log('filterValue'+filterValue);
     return q.all([
-        search(searchValue),
-        resultCount(searchValue)
+        search(searchValue,1,filterValue),
+        resultCount(searchValue,filterValue)
     ]);
 };
 
