@@ -5,7 +5,7 @@ block content
     include ./component/search
 
     if results
-        div(class="ui horizontal divider") 搜索结果
+        div(class="ui horizontal divider" id='searchDivider') 搜索结果
         include ./component/filter
         div(class='ui huge selection celled list' id='tableList')
             include ./component/table
