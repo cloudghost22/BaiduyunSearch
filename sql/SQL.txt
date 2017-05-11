@@ -16,3 +16,6 @@ show create table share;
 
 //查看索引
 show index from share;
+
+//删除重复数据
+delete from share_new where id not in (select maxid from (select max(id) as maxid from share_new group by shareid) b);
