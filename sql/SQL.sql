@@ -1,21 +1,21 @@
-//´´½¨È«ÎÄË÷Òı
+//åˆ›å»ºå…¨æ–‡ç´¢å¼•
 ALTER TABLE share ADD FULLTEXT INDEX ft_index (title) WITH PARSER ngram;
 
-//¸üĞÂÊı¾İ
+//æ›´æ–°æ•°æ®
 insert into share(category,feed_time,isdir,server_filename,size,saveTime,shareid,shorturl,title,uk,username) SELECT category,feed_time,isdir,server_filename,size,saveTime,shareid,shorturl,title,uk,username FROM share_new;
 
-//Ë÷ÒıÍ£Ö¹ºÍÆôÓÃ
+//ç´¢å¼•åœæ­¢å’Œå¯ç”¨
 ALTER TABLE share DISABLE KEYS;
 ALTER TABLE share ENABLE KEYS;
 
-#REPAIR TABLE `share` ĞŞ¸´±í 
-#OPTIMIZE TABLE `share` ÓÅ»¯±í
+#REPAIR TABLE `share` ä¿®å¤è¡¨ 
+#OPTIMIZE TABLE `share` ä¼˜åŒ–è¡¨
 
-//²é¿´´´½¨±íÓï¾ä
+//æŸ¥çœ‹åˆ›å»ºè¡¨è¯­å¥
 show create table share;
 
-//²é¿´Ë÷Òı
+//æŸ¥çœ‹ç´¢å¼•
 show index from share;
 
-//É¾³ıÖØ¸´Êı¾İ
+//åˆ é™¤é‡å¤
 delete from share_new where id not in (select maxid from (select max(id) as maxid from share_new group by shareid) b);
