@@ -9,5 +9,5 @@ module.exports={
         "password":"qazwsx",
         "database":"baiduyun"
     },
-    pageNumber:15
+    pageNumber:10
 };

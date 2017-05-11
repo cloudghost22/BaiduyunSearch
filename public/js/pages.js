@@ -28,7 +28,6 @@ $('#prePage').on("click", function () {
     var searchValue = $('#search-value').text();
     var pageNum = $('#pageNumber').text();
     var filterValue = $('[data-click = 1]').attr('data-value');
-    // console.log(filterValue);
     $.ajax({
         method: "GET",
         url: "/pages",
@@ -61,39 +60,39 @@ $('#prePage').on("click", function () {
 
 $('#nextPage').on("click", function () {
     var searchValue = $('#search-value').text();
-    // var idx = $('#nextPage').attr('data-value');
     var filterValue = $('[data-click = 1]').attr('data-value');
-    // console.log(filterValue);
     var pageNum = $('#pageNumber').text();
     var totalResult = $('#totalResult').text();
-    if (Math.ceil(totalResult * 1 / 15) > pageNum) {
+    // if (Math.ceil(totalResult * 1 / 15) > pageNum) {
         $.ajax({
             method: "GET",
             url: "/pages",
             data: {search: searchValue, idx: pageNum * 1 + 1,filter:filterValue}
         })
             .done(function (msg) {
-                $('#resultList tbody').remove();
-                $('#resultList').append('<tbody></tbody>');
-                for (var i = 0; i < msg.length; i++) {
-                    var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
-                    str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
-                    str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
-                    str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";
-                    $('#resultList tbody').append(str);
+                console.log(msg);
+                if(msg.length > 0){
+                    $('#resultList tbody').remove();
+                    $('#resultList').append('<tbody></tbody>');
+                    for (var i = 0; i < msg.length; i++) {
+                        var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                        str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
+                        str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
+                        str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";
+                        $('#resultList tbody').append(str);
+                    }
+                    $('#prePage').attr('data-value', '' + pageNum * 1 + '');
+                    $('#nextPage').attr('data-value', '' + (pageNum * 1 + 2) + '');
+                    $('#pageNumber').text('' + (pageNum * 1 + 1) + '');
+                    $('#prePage').css("display", '');
+                    $('#homePage').css("display", '');
                 }
-                $('#prePage').attr('data-value', '' + pageNum * 1 + '');
-                $('#nextPage').attr('data-value', '' + (pageNum * 1 + 2) + '');
-                $('#pageNumber').text('' + (pageNum * 1 + 1) + '');
-                $('#prePage').css("display", '');
-                $('#homePage').css("display", '');
-            });
-    }
-    else {
-        alert('后面没有了');
-        return;
-    }
+                else {
+                    alert('后面没有了');
+                    return;
+                }
 
+            });
 });
 
 $('#searchBtn').on("click", function () {
@@ -129,17 +128,17 @@ $('.filterSpan').on('click', function () {
     $.ajax({
         method: "GET",
         url: "/pages",
-        data: {search: searchValue, idx: "1", filter: filterValue,flag:1}
+        data: {search: searchValue, idx: "1", filter: filterValue}
     })
         .done(function (msg) {
             //console.log("Data Saved: " + msg);
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
-            for (var i = 0; i < msg[0].length; i++) {
-                var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[0][i].ID + "\" target=\'_blank\'>" + msg[0][i].title + "</a></td>";
-                str += "<td class=\'center aligned\'>" + msg[0][i].username + "</td>";
-                str += "<td class=\'center aligned\'>" + msg[0][i].category + "</td>";
-                str += "<td class=\'center aligned\'>" + msg[0][i].size + "</td></tr>";
+            for (var i = 0; i < msg.length; i++) {
+                var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
+                str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
+                str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";
                 $('#resultList tbody').append(str);
             }
             $('#pageNumber').text('1');
@@ -147,6 +146,5 @@ $('.filterSpan').on('click', function () {
             $('#nextPage').attr('data-value', '2');
             $('#prePage').css("display", 'none');
             $('#homePage').css("display", 'none');
-            $('#totalResult').text(msg[1][0].total);
         });
 });

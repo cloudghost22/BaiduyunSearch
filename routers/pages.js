@@ -11,23 +11,24 @@ router.get('/', function (req, res, next) {
     let searchValue = req.query.search;
     let searchIndex = req.query.idx;
     let filterValue = req.query.filter;
-    let first = req.query.flag;
+    // let first = req.query.flag;
     // console.log(filterValue);
-    if(first){
-        searchJson(searchValue,filterValue)
+    /*if(first){
+     searchJson(searchValue,filterValue)
+     .then((result) => {
+     result.searchValue = searchValue;
+     result[0] = parseAllShare(result[0],searchValue);
+     res.send(result);
+     });
+     }
+     else */
+    if (searchValue) {
+        search(searchValue, searchIndex, filterValue)
             .then((result) => {
-                result.searchValue = searchValue;
-                result[0] = parseAllShare(result[0],searchValue);
+                result = parseAllShare(result, searchValue);
                 res.send(result);
             });
-    }
-    else if(searchValue){
-        search(searchValue,searchIndex,filterValue)
-            .then((result) => {
-                result = parseAllShare(result,searchValue);
-                res.send(result);
-            });
-    }else {
+    } else {
         res.render('main');
     }
 

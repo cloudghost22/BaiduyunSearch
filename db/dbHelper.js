@@ -27,7 +27,7 @@ let search = function (searchValue, idx = 1,filterValue = 9) {
     pool.getConnection((err, conn) => {
         "use strict";
         if (err) deferred.reject(err);
-        console.log(queryStr);
+        // console.log(queryStr);
         conn.query(queryStr, (err, result) => {
             conn.release();
             deferred.resolve(result);
@@ -48,7 +48,7 @@ let resultCount = function (searchValue,filterValue = 9) {
     }
     //save the search value
     saveSearch(searchValueStr);
-    console.log(queryStr);
+    // console.log(queryStr);
     pool.getConnection((err, conn) => {
         "use strict";
         if (err) deferred.reject(err);
