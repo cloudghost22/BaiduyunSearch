@@ -8,6 +8,8 @@ let parseShare = function (json) {
     let cate = new Map();
     cate.set(1, '视频').set(2, '音频').set(3, '图片').set(4, '文档').set(5, '应用').set(6, '其他').set(7, '下载');
     let idx = json[0].category;
+    // console.log(Buffer.from((json[0].ID + 1).toString()).toString('base64'));
+    tempJson.id= Buffer.from((json[0].ID + 1).toString()).toString('base64')
     tempJson.title = json[0].title;
     tempJson.username = json[0].username;
     tempJson.sharetime = timeStamp2String(json[0].feed_time);

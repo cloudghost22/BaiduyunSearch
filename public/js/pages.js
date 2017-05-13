@@ -118,6 +118,13 @@ $('.filterSpan').on('mouseleave', function () {
     }
 });
 
+$('.logo-img,.logomin-img').on('mouseenter',function () {
+    $(this).css('cursor','pointer')
+});
+$('.logo-img,.logomin-img').on('click',function () {
+   window.location.href = '/';
+});
+
 $('.filterSpan').on('click', function () {
     $(this).css({"background-color": "#CCCCCC", "color": "white"});
     $(this).siblings().css({"background-color": "", "color": "black"});

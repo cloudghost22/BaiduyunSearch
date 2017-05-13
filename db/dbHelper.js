@@ -71,6 +71,7 @@ let searchJson = function (searchValue,filterValue = 9) {
 let viewShare = function (ID) {
     let deferred = q.defer();
     let queryStr = `select * from share where ID = ${ID};`;
+    // console.log(queryStr);
     pool.getConnection((err, conn) => {
         "use strict";
         if (err) deferred.reject(err);
