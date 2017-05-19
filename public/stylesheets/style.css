@@ -614,6 +614,9 @@ i.icon.arrow.right:before {
     margin-bottom: 0em;
 }
 
+.ui.red.table {
+    border-top: .2em solid #db2828;
+}
 /*-------------------
         Sizing
 --------------------*/
