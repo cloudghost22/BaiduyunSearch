@@ -7,6 +7,7 @@ let router = express.Router();
 // let searchJson = require('../db/dbHelper').searchJson;
 let search = require('../db/dbHelper').search;
 let parseAllShare = require('../common/func').parseAllShare;
+let sphinxSearch = require('../sphinx/sphinx').sphinxSearch;
 
 router.get('/', function (req, res, next) {
     let searchValue = req.query.search;
@@ -19,12 +20,13 @@ router.get('/', function (req, res, next) {
                 console.log(typeof(result));
                 res.render('main', {results: result});
             });*/
-        search(searchValue)
+/*        search(searchValue)
             .then((result) => {
                 result = parseAllShare(result, searchValue);
                 result.searchValue = searchValue;
                 res.render('main', {results: result});
-            });
+            });*/
+        sphinxSearch(searchValue);
     }else {
         res.render('main');
     }

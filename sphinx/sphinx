@@ -1,0 +1,28 @@
+var mysql = require('mysql');
+
+var connection = mysql.createConnection(
+    {
+        localAddress: '127.0.0.1',
+        port: '9306'
+    }
+);
+
+
+let sphinxSearch = function (str) {
+    connection.connect();
+    var queryString = `SELECT * FROM test1 WHERE MATCH('${str}') limit 100`;
+
+    connection.query(queryString, function(err, rows, fields) {
+        if (err) throw err;
+
+        console.log(rows);
+        // console.log(fields);
+
+        // for (var i in rows) {
+        //     console.log('date:', rows[i].date);
+        // }
+    });
+    connection.end();
+};
+
+module.exports.sphinxSearch = sphinxSearch;
