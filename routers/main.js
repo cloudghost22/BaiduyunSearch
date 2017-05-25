@@ -20,17 +20,17 @@ router.get('/', function (req, res, next) {
                 console.log(typeof(result));
                 res.render('main', {results: result});
             });*/
-/*        search(searchValue)
+        search(searchValue)
             .then((result) => {
                 result = parseAllShare(result, searchValue);
                 result.searchValue = searchValue;
                 res.render('main', {results: result});
-            });*/
-        sphinxSearch(searchValue)
+            });
+/*        sphinxSearch(searchValue)
             .then(result=>{
                 console.log(result);
                 console.log(result.total);
-            });
+            });*/
     }else {
         res.render('main');
     }

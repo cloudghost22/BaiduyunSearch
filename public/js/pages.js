@@ -155,3 +155,7 @@ $('.filterSpan').on('click', function () {
             $('#homePage').css("display", 'none');
         });
 });
+
+$('#addFav').on('click',function () {
+    alert('请按 Ctrl + D 键收藏本网站，感谢你的关注！')
+});
