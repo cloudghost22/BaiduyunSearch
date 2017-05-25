@@ -1,0 +1,68 @@
+#
+# Minimal Sphinx configuration sample (clean, simple, functional)
+#
+
+source src1
+{
+	type			= mysql
+
+	sql_host		= localhost
+	sql_user		= root
+	sql_pass		= qazwsx
+	sql_db			= test
+	sql_port		= 3306	# optional, default is 3306
+
+  sql_query_pre		= SET NAMES utf8
+	sql_query		= select id,category,feed_time,title from share_new
+
+	sql_attr_uint		= id
+	sql_attr_uint		= category
+	sql_attr_bigint 	= feed_time
+}
+
+
+index test1
+{
+	source			= src1
+	path			= D:/sphinx/data/share_new/share_new
+	ngram_len = 1
+  ngram_chars		= U+3000..U+2FA1F, U+FF41..U+FF5A->a..z, U+FF21..U+FF3A->a..z, A..Z->a..z, a..z
+  phrase_boundary		= ., ?, !, U+2026
+}
+
+
+index testrt
+{
+	type			= rt
+	rt_mem_limit		= 128M
+
+	path			= D:/sphinx/data/share_new/testrt
+
+	rt_field		= title
+	rt_attr_uint		= id
+	rt_attr_uint = category
+	rt_attr_bigint 	= feed_time
+}
+
+
+indexer
+{
+	mem_limit		= 128M
+}
+
+
+searchd
+{
+	listen			= 9312
+	listen			= 9306:mysql41
+	log			=  D:/sphinx/log/searchd.log
+	query_log		= D:/sphinx/log/query.log
+	read_timeout		= 5
+	max_children		= 30
+	pid_file		= D:/sphinx/log/searchd.pid
+	seamless_rotate		= 1
+	preopen_indexes		= 1
+	unlink_old		= 1
+	workers			= threads # for RT to work
+	binlog_path		= D:/sphinx/data
+}
