@@ -26,7 +26,11 @@ router.get('/', function (req, res, next) {
                 result.searchValue = searchValue;
                 res.render('main', {results: result});
             });*/
-        sphinxSearch(searchValue);
+        sphinxSearch(searchValue)
+            .then(result=>{
+                console.log(result);
+                console.log(result.total);
+            });
     }else {
         res.render('main');
     }
