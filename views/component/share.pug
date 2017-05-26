@@ -17,8 +17,8 @@ div(id='shareDiv')
                 tr
                     td(colspan="2" id='downloadButton')
                         span 下载地址:
-                        a(href=`/url?q=${results.id}` target='_blank') 百度网盘
-                        a(href=`/url?q=${results.id}&t=1` target='_blank') 百度网盘移动版
+                        a(href=`/url?q=${results.id}` target='_blank' rel='noreferrer') 百度网盘
+                        a(href=`/url?q=${results.id}&t=1` target='_blank' rel='noreferrer') 百度网盘移动版
     div(id='downloadDesc')
         p(id='downloadP') 下载说明:
         p   <b>#{results.title}</b> 是其他用户分享在百度网盘的资源，本站并不保存该资源。可根据 <b>#{results.title}</b> 文件大小和后缀判断文件质量和安全，建议打开文件前先进行杀毒。您可以下载文件到电脑或者保存到自己的百度云盘账号。感谢您对【<b>91百度盘搜索</b>】的支持，本站专业提供百度云网盘资源搜索服务。
