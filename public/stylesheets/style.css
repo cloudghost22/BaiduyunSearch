@@ -71,6 +71,12 @@ a:hover {
     line-height: 35px;
 }
 
+#frindLink span a{
+    color: #4682b4 !important;
+    font-size: 0.9em;
+    padding-right: 0.5em;
+}
+
 .footer a {
     color: #666 !important;
 }
