@@ -1,15 +1,17 @@
 $('#homePage').on("click", function () {
     var searchValue = $('#search-value').text();
+    var filterValue = $('[filter-click = 1]').attr('filter-value');
+    var sortValue = $('[sort-click = 1]').attr('sort-value');
     $.ajax({
         method: "GET",
         url: "/pages",
-        data: {search: searchValue, idx: "1"}
+        data: {search: searchValue, idx: "1", filter: filterValue, sort: sortValue}
     })
         .done(function (msg) {
             //console.log("Data Saved: " + msg);
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
-            for (var i = 0; i < msg.length; i++) {
+            for (var i = 0; i < msg.length - 1; i++) {
                 var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
                 str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
                 str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
@@ -27,17 +29,18 @@ $('#homePage').on("click", function () {
 $('#prePage').on("click", function () {
     var searchValue = $('#search-value').text();
     var pageNum = $('#pageNumber').text();
-    var filterValue = $('[data-click = 1]').attr('data-value');
+    var filterValue = $('[filter-click = 1]').attr('filter-value');
+    var sortValue = $('[sort-click = 1]').attr('sort-value');
     $.ajax({
         method: "GET",
         url: "/pages",
-        data: {search: searchValue, idx: (pageNum * 1 - 1),filter:filterValue}
+        data: {search: searchValue, idx: (pageNum * 1 - 1), filter: filterValue, sort: sortValue}
     })
         .done(function (msg) {
             console.log(msg[0]);
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
-            for (var i = 0; i < msg.length; i++) {
+            for (var i = 0; i < msg.length - 1; i++) {
                 var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
                 str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
                 str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
@@ -60,39 +63,38 @@ $('#prePage').on("click", function () {
 
 $('#nextPage').on("click", function () {
     var searchValue = $('#search-value').text();
-    var filterValue = $('[data-click = 1]').attr('data-value');
     var pageNum = $('#pageNumber').text();
     var totalResult = $('#totalResult').text();
-    // if (Math.ceil(totalResult * 1 / 15) > pageNum) {
-        $.ajax({
-            method: "GET",
-            url: "/pages",
-            data: {search: searchValue, idx: pageNum * 1 + 1,filter:filterValue}
-        })
-            .done(function (msg) {
-                console.log(msg);
-                if(msg.length > 0){
-                    $('#resultList tbody').remove();
-                    $('#resultList').append('<tbody></tbody>');
-                    for (var i = 0; i < msg.length; i++) {
-                        var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
-                        str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
-                        str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
-                        str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";
-                        $('#resultList tbody').append(str);
-                    }
-                    $('#prePage').attr('data-value', '' + pageNum * 1 + '');
-                    $('#nextPage').attr('data-value', '' + (pageNum * 1 + 2) + '');
-                    $('#pageNumber').text('' + (pageNum * 1 + 1) + '');
-                    $('#prePage').css("display", '');
-                    $('#homePage').css("display", '');
+    var filterValue = $('[filter-click = 1]').attr('filter-value');
+    var sortValue = $('[sort-click = 1]').attr('sort-value');
+    $.ajax({
+        method: "GET",
+        url: "/pages",
+        data: {search: searchValue, idx: pageNum * 1 + 1, filter: filterValue, sort: sortValue}
+    })
+        .done(function (msg) {
+            if (msg.length > 0) {
+                $('#resultList tbody').remove();
+                $('#resultList').append('<tbody></tbody>');
+                for (var i = 0; i < msg.length - 1; i++) {
+                    var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                    str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
+                    str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
+                    str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";
+                    $('#resultList tbody').append(str);
                 }
-                else {
-                    alert('后面没有了');
-                    return;
-                }
+                $('#prePage').attr('data-value', '' + pageNum * 1 + '');
+                $('#nextPage').attr('data-value', '' + (pageNum * 1 + 2) + '');
+                $('#pageNumber').text('' + (pageNum * 1 + 1) + '');
+                $('#prePage').css("display", '');
+                $('#homePage').css("display", '');
+            }
+            else {
+                alert('后面没有了');
+                return;
+            }
 
-            });
+        });
 });
 
 $('#searchBtn').on("click", function () {
@@ -107,41 +109,45 @@ $('#searchBtn').on("click", function () {
     }
 });
 
-$('.filterSpan').on('mouseenter', function () {
+$('.filterSpan,.sortSpan').on('mouseenter', function () {
     $(this).css({"background-color": "#CCCCCC", "color": "white"});
 });
 
-$('.filterSpan').on('mouseleave', function () {
-    if($(this).attr('data-click') == 0){
-        console.log('in');
+$('.filterSpan,.sortSpan').on('mouseleave', function () {
+    if ($(this).attr('filter-click') == 0) {
+        $(this).css({"background-color": "", "color": "black"});
+    }
+    if ($(this).attr('sort-click') == 0) {
         $(this).css({"background-color": "", "color": "black"});
     }
 });
 
-$('.logo-img,.logomin-img').on('mouseenter',function () {
-    $(this).css('cursor','pointer')
+$('.logo-img,.logomin-img').on('mouseenter', function () {
+    $(this).css('cursor', 'pointer')
 });
-$('.logo-img,.logomin-img').on('click',function () {
-   window.location.href = '/';
+$('.logo-img,.logomin-img').on('click', function () {
+    window.location.href = '/';
 });
 
 $('.filterSpan').on('click', function () {
     $(this).css({"background-color": "#CCCCCC", "color": "white"});
     $(this).siblings().css({"background-color": "", "color": "black"});
-    $(this).siblings().attr('data-click','0');
-    $(this).attr('data-click','1');
+    $(this).siblings().attr('filter-click', '0');
+    $(this).attr('filter-click', '1');
+
     var searchValue = $('#search-value').text();
-    var filterValue = $(this).attr('data-value');
+    var filterValue = $('[filter-click = 1]').attr('filter-value');
+    var sortValue = $('[sort-click = 1]').attr('sort-value');
     $.ajax({
         method: "GET",
         url: "/pages",
-        data: {search: searchValue, idx: "1", filter: filterValue}
+        data: {search: searchValue, idx: "1", filter: filterValue, sort: sortValue}
     })
         .done(function (msg) {
-            //console.log("Data Saved: " + msg);
+            $('#totalResult').text(msg[msg.length - 1].totalRecoders);
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
-            for (var i = 0; i < msg.length; i++) {
+            for (var i = 0; i < msg.length - 1; i++) {
                 var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
                 str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
                 str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
@@ -156,6 +162,43 @@ $('.filterSpan').on('click', function () {
         });
 });
 
-$('#addFav').on('click',function () {
+$('.sortSpan').on('click', function () {
+    $(this).css({"background-color": "#CCCCCC", "color": "white"});
+    $(this).siblings().css({"background-color": "", "color": "black"});
+    $(this).siblings().attr('sort-click', '0');
+    $(this).attr('sort-click', '1');
+    var searchValue = $('#search-value').text();
+    var filterValue = $('[filter-click = 1]').attr('filter-value');
+    var sortValue = $('[sort-click = 1]').attr('sort-value');
+    $.ajax({
+        method: "GET",
+        url: "/pages",
+        data: {search: searchValue, idx: "1", filter: filterValue, sort: sortValue}
+    })
+        .done(function (msg) {
+            //console.log("Data Saved: " + msg);
+            $('#totalResult').text(msg[msg.length - 1].totalRecoders);
+            $('#resultList tbody').remove();
+            $('#resultList').append('<tbody></tbody>');
+            for (var i = 0; i < msg.length - 1; i++) {
+                var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
+                str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
+                str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";
+                $('#resultList tbody').append(str);
+            }
+            $('#pageNumber').text('1');
+            $('#prePage').attr('data-value', '0');
+            $('#nextPage').attr('data-value', '2');
+            $('#prePage').css("display", 'none');
+            $('#homePage').css("display", 'none');
+        });
+});
+
+$('#addFav').on('click', function () {
     alert('请按 Ctrl + D 键收藏本网站，感谢你的关注！')
+});
+
+$('#searchValue').on('click',function () {
+    $(this).select();
 });

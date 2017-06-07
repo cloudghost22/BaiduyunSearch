@@ -1,58 +1,53 @@
 var mysql = require('mysql');
 let Sphinx = require('sphinxapi');
 let q = require('q');
+let sSearch = require('../db/dbHelper').sphinxSearch;
+let config = require("../config/default");
 
 const sphinx = new Sphinx({
     host: 'localhost', // default sphinx host
     port: 9312 // default sphinx TCP port
 });
 
-/*var connection = mysql.createConnection(
-    {
-        localAddress: '127.0.0.1',
-        port: '9306'
-    }
-);*/
-
-
-let sphinxSearch = function (str) {
+let sphinxSearch = function (str,idx=1,filter=9,sort=0) {
     let deferred = q.defer();
-    // sphinx.SetSortMode(SPH_SORT_ATTR_ASC);
-    // sphinx.SetGroupBy('saveTime',Sphinx.SPH_GROUPBY_ATTR,"@group desc")
-    sphinx.SetFilter('category',[6],false);
-    sphinx.SetSortMode(Sphinx.SPH_SORT_ATTR_DESC, 'feed_time');
-    sphinx.SetLimits(0,10);
-    sphinx.Query(str,(err,result)=>{
+    //set the match mode
+    sphinx.SetMatchMode(Sphinx.SPH_MATCH_ANY);
+    //set the type filter
+    sphinx.ResetFilters();
+    if(filter!= 9){
+        sphinx.SetFilter('category',[filter*1],false);
+    }
+    //set the order by collomn
+    if(sort){
+        sphinx.SetSortMode(Sphinx.SPH_SORT_ATTR_DESC, 'feed_time');
+    }else {
+        sphinx.SetSortMode(Sphinx.SPH_SORT_RELEVANCE);
+    }
+    //set the fetch recoders number
+    idx = idx - 1;
+    let offset = idx * config.pageNumber;
+    sphinx.SetLimits(offset,config.pageNumber);
+
+    // console.log(sphinx);
+    sphinx.Query(convertQueryStr(str),(err,result)=>{
         if(err) throw err;
-        console.log(getIdsFromResult(result));
-        deferred.resolve(result);
+        console.log(result);
+        if(result.total_found != 0 && result.matches != ''){
+            sSearch(getIdsFromResult(result))
+                .then(res=>{
+                    res.total = result.total_found;
+                    deferred.resolve(res);
+                });
+        }else if(result.total_found != 0 && result.matches == ''){
+            deferred.resolve('finish');
+        }
+        else{
+            deferred.resolve('zero');
+        }
+
     });
     return deferred.promise;
-/*    connection.connect();
-    var queryString = `SELECT * FROM test1 WHERE MATCH('${str}') limit 100`;
-
-    connection.query(queryString, function(err, rows, fields) {
-        if (err) throw err;
-
-        console.log(rows);
-        // console.log(fields);
-
-        // for (var i in rows) {
-        //     console.log('date:', rows[i].date);
-        // }
-    });
-    connection.end();*/
-    // sphinx.SetSortMode("SPH_SORT_ATTR_DESC",2);
-/*    const params = {
-        limits: {
-            offset: 0, // default is 0
-            limit: 30 // default is 20 as documented
-        }
-    };
-    sphinx.query(str,params)
-        .then(result=>{
-            console.log(result);
-        }).catch(console.error.bind(console))*/
 };
 
 let getIdsFromResult = function(result = {}) {
@@ -63,6 +58,19 @@ let getIdsFromResult = function(result = {}) {
     }
     return result.matches.map(match => match && match.id)
         // .filter(id => {typeof (id) == 'Number'});
+};
+
+let convertQueryStr = function (queryString) {
+    let qs = queryString.trim().substr(0, 30);
+    let qString = qs.replace(/[:：\s,，。./]/g, "|").split('|');
+    // console.log(qString);
+    let qStringArr = '';
+    for (let i of qString) {
+        if (i) {
+            qStringArr += (qStringArr.length > 0 ? ' ' : '') + i;
+        }
+    }
+    return qStringArr;
 };
 
 module.exports.sphinxSearch = sphinxSearch;

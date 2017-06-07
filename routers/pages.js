@@ -6,27 +6,37 @@ let router = express.Router();
 let search = require('../db/dbHelper').search;
 let searchJson = require('../db/dbHelper').searchJson;
 let parseAllShare = require('../common/func').parseAllShare;
+let sphinxSearch = require('../sphinx/sphinx').sphinxSearch;
 
 router.get('/', function (req, res, next) {
     let searchValue = req.query.search;
     let searchIndex = req.query.idx;
     let filterValue = req.query.filter;
-    // let first = req.query.flag;
-    // console.log(filterValue);
-    /*if(first){
-     searchJson(searchValue,filterValue)
-     .then((result) => {
-     result.searchValue = searchValue;
-     result[0] = parseAllShare(result[0],searchValue);
-     res.send(result);
-     });
-     }
-     else */
+    let sortValue = req.query.sort;
+
     if (searchValue) {
-        search(searchValue, searchIndex, filterValue)
+/*        search(searchValue, searchIndex, filterValue)
             .then((result) => {
                 result = parseAllShare(result, searchValue);
                 res.send(result);
+            });*/
+        sphinxSearch(searchValue, searchIndex, filterValue,sortValue*1)
+            .then((result) => {
+                if(result == 'zero'){
+                    let r = [];
+                    r.totalRecoders = 0;
+                    res.render('main', {results: r});
+                }
+                else if(result == 'finish'){
+                    let r = [];
+                    r.totalRecoders = 0;
+                    res.render('main', {results: r});
+                }else{
+                    let total = result.total;
+                    result = parseAllShare(result, searchValue);
+                    result.push({totalRecoders:total});
+                    res.send(result);
+                }
             });
     } else {
         res.render('main');

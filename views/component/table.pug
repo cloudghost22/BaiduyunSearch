@@ -11,15 +11,22 @@ div(class='resultDiv')
                 th(class='two wide center aligned')  类型
                 th(class='two wide center aligned')  大小
         tbody
-            each result in results
+            if results.totalRecoders > 0
+                each result in results
+                    tr
+                        td
+                            - var title = result.title;
+                            a(class='text' href=`/result/?view=${result.ID}` target='_blank')
+                                !=  title
+                        td(class='center aligned') #{result.username}
+                        td(class='center aligned') #{result.category}
+                        td(class='center aligned') #{result.size}
+            else
                 tr
                     td
-                        - var title = result.title;
-                        a(class='text' href=`/result/?view=${result.ID}` target='_blank')
-                            !=  title
-                    td(class='center aligned') #{result.username}
-                    td(class='center aligned') #{result.category}
-                    td(class='center aligned') #{result.size}
+                    td
+                    td
+                    td
         tfoot
             tr
                 th(colspan="4")

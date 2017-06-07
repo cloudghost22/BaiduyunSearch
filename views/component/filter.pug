@@ -3,11 +3,16 @@ div(class='filterDiv')
         tr
             td
                 span(id='filterText') 筛选:
-                span(class='filterSpan' data-click = '1' data-value='9' style='background-color: #CCCCCC;color: white') 全部
-                span(class='filterSpan' data-click = '0' data-value='1') 视频
-                span(class='filterSpan' data-click = '0' data-value='2') 音乐
-                span(class='filterSpan' data-click = '0' data-value='3') 图片
-                span(class='filterSpan' data-click = '0' data-value='4') 文档
-                span(class='filterSpan' data-click = '0' data-value='5') 应用
-                span(class='filterSpan' data-click = '0' data-value='7') 下载
-                span(class='filterSpan' data-click = '0' data-value='6') 其他
+                span(class='filterSpan' filter-click = '1' filter-value='9' style='background-color: #CCCCCC;color: white') 全部
+                span(class='filterSpan' filter-click = '0' filter-value='1') 视频
+                span(class='filterSpan' filter-click = '0' filter-value='2') 音乐
+                span(class='filterSpan' filter-click = '0' filter-value='3') 图片
+                span(class='filterSpan' filter-click = '0' filter-value='4') 文档
+                span(class='filterSpan' filter-click = '0' filter-value='5') 应用
+                span(class='filterSpan' filter-click = '0' filter-value='7') 下载
+                span(class='filterSpan' filter-click = '0' filter-value='6') 其他
+        tr
+            td
+                span(id='sortText') 排序:
+                span(class='sortSpan' sort-click = '1' sort-value=0 style='background-color: #CCCCCC;color: white') 综合
+                span(class='sortSpan' sort-click = '0' sort-value=1) 最新

@@ -6,9 +6,6 @@ let mysql = require('mysql');
 let config = require("../config/default");
 let q = require('q');
 
-
-// console.log(dbConfig.mysql);
-
 let pool = mysql.createPool(config.mysql);
 
 let search = function (searchValue, idx = 1,filterValue = 9) {
@@ -42,9 +39,9 @@ let resultCount = function (searchValue,filterValue = 9) {
     let filterValueStr = (filterValue/1) >7 ? '1=1':(`category = ${filterValue/1}`);
     let queryStr = ``;
     if (searchValueStr.length == 1) {
-        queryStr = `select count(*) as total from (select 1 as total from share WHERE ${filterValueStr} and title like '%${searchValueStr}%' limit 1000) xx;`;
+        queryStr = `select count(*) as total from (select 1 as total from ${config.mainTable}  WHERE ${filterValueStr} and title like '%${searchValueStr}%' limit 1000) xx;`;
     } else {
-        queryStr = `select count(*) as total from (select 1 as c from share WHERE ${filterValueStr} and MATCH(title) AGAINST('${searchValueStr}' IN NATURAL LANGUAGE MODE) limit 1000) xx;`;
+        queryStr = `select count(*) as total from (select 1 as c from ${config.mainTable}  WHERE ${filterValueStr} and MATCH(title) AGAINST('${searchValueStr}' IN NATURAL LANGUAGE MODE) limit 1000) xx;`;
     }
     //save the search value
     saveSearch(searchValueStr);
@@ -70,7 +67,7 @@ let searchJson = function (searchValue,filterValue = 9) {
 
 let viewShare = function (ID) {
     let deferred = q.defer();
-    let queryStr = `select * from share where ID = ${ID};`;
+    let queryStr = `select * from ${config.mainTable} where ID = ${ID};`;
     // console.log(queryStr);
     pool.getConnection((err, conn) => {
         "use strict";
@@ -111,6 +108,23 @@ let saveSearch = function (searchValue) {
     return deferred.promise;
 };
 
+let sphinxSearch = function (idArr) {
+    let deferred = q.defer();
+    //let searchValueStr = convertQueryStr(searchValue);
+    let queryStr = `select * from ${config.mainTable} where id in (${idArr});`;
+    // console.log(queryStr)
+    pool.getConnection((err, conn) => {
+        "use strict";
+        if (err) deferred.reject(err);
+        conn.query(queryStr, (err, result) => {
+            conn.release();
+            deferred.resolve(result);
+        });
+    });
+    return deferred.promise;
+};
+
 module.exports.searchJson = searchJson;
 module.exports.search = search;
 module.exports.viewShare = viewShare;
+module.exports.sphinxSearch = sphinxSearch;

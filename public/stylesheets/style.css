@@ -167,11 +167,11 @@ em{
     color: #c00;
 }
 
-#filterText{
+#filterText,#sortText{
     font-size: 20px;
     margin: 1em;
 }
-.filterSpan{
+.filterSpan,.sortSpan{
     font-size: 16px;
     cursor: pointer;
     padding: 0.5em;
