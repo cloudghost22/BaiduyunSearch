@@ -3,6 +3,11 @@ let Sphinx = require('sphinxapi');
 let q = require('q');
 let sSearch = require('../db/dbHelper').sphinxSearch;
 let config = require("../config/default");
+//chinase words cut
+let Segment = require('segment');
+let segment = new Segment();
+// 使用默认的识别模块及字典，载入字典文件需要1秒，仅初始化时执行一次即可
+segment.useDefault();
 
 const sphinx = new Sphinx({
     host: 'localhost', // default sphinx host
@@ -12,7 +17,7 @@ const sphinx = new Sphinx({
 let sphinxSearch = function (str,idx=1,filter=9,sort=0) {
     let deferred = q.defer();
     //set the match mode
-    sphinx.SetMatchMode(Sphinx.SPH_MATCH_ANY);
+    //sphinx.SetMatchMode(Sphinx.SPH_MATCH_ANY);
     //set the type filter
     sphinx.ResetFilters();
     if(filter!= 9){
@@ -32,7 +37,7 @@ let sphinxSearch = function (str,idx=1,filter=9,sort=0) {
     // console.log(sphinx);
     sphinx.Query(convertQueryStr(str),(err,result)=>{
         if(err) throw err;
-        console.log(result);
+        // console.log(result);
         if(result.total_found != 0 && result.matches != ''){
             sSearch(getIdsFromResult(result))
                 .then(res=>{
@@ -62,14 +67,23 @@ let getIdsFromResult = function(result = {}) {
 
 let convertQueryStr = function (queryString) {
     let qs = queryString.trim().substr(0, 30);
-    let qString = qs.replace(/[:：\s,，。./]/g, "|").split('|');
+    // let qString = qs.replace(/[:：\s,，。./]/g, "|").split('|');
     // console.log(qString);
+    //let qString = qs.replace(/[:：\s,，。./]/g, "|");
+   // console.time('fenci');
+    let qString = segment.doSegment(qs,{
+        simple: true,
+        stripPunctuation: true
+    });
+    //console.timeEnd('fenci');
+
     let qStringArr = '';
     for (let i of qString) {
         if (i) {
             qStringArr += (qStringArr.length > 0 ? ' ' : '') + i;
         }
     }
+    //console.log(qStringArr);
     return qStringArr;
 };
 
