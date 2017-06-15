@@ -124,7 +124,25 @@ let sphinxSearch = function (idArr) {
     return deferred.promise;
 };
 
+let getHot = function () {
+    let deferred = q.defer();
+    //let searchValueStr = convertQueryStr(searchValue);
+    let queryStr = `select * from (select title,type from hottop where type = 'movie' ORDER BY id,getTime desc LIMIT 20) x UNION ALL select * from (select title,type from hottop where type = 'tv' ORDER BY id,getTime desc LIMIT 20) y;`;
+    // console.log(queryStr)
+    pool.getConnection((err, conn) => {
+        "use strict";
+        if (err) deferred.reject(err);
+        conn.query(queryStr, (err, result) => {
+            conn.release();
+            // console.log(result);
+            deferred.resolve(result);
+        });
+    });
+    return deferred.promise;
+};
+
 module.exports.searchJson = searchJson;
 module.exports.search = search;
 module.exports.viewShare = viewShare;
 module.exports.sphinxSearch = sphinxSearch;
+module.exports.getHot = getHot;

@@ -22,15 +22,18 @@ router.get('/', function (req, res, next) {
             });*/
         sphinxSearch(searchValue, searchIndex, filterValue,sortValue*1)
             .then((result) => {
+                // console.log(result);
                 if(result == 'zero'){
                     let r = [];
-                    r.totalRecoders = 0;
-                    res.render('main', {results: r});
+                    // r.totalRecoders = 0;
+                    r.push({'totalRecoders':0});
+                    res.send(r);
                 }
                 else if(result == 'finish'){
                     let r = [];
-                    r.totalRecoders = 0;
-                    res.render('main', {results: r});
+                    r.push({'totalRecoders':0});
+                    console.log(r);
+                    res.send(r);
                 }else{
                     let total = result.total;
                     result = parseAllShare(result, searchValue);

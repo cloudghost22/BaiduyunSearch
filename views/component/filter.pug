@@ -1,18 +1,25 @@
 div(class='filterDiv')
-    table(class='ui celled table')
-        tr
-            td
-                span(id='filterText') 筛选:
-                span(class='filterSpan' filter-click = '1' filter-value='9' style='background-color: #CCCCCC;color: white') 全部
-                span(class='filterSpan' filter-click = '0' filter-value='1') 视频
-                span(class='filterSpan' filter-click = '0' filter-value='2') 音乐
-                span(class='filterSpan' filter-click = '0' filter-value='3') 图片
-                span(class='filterSpan' filter-click = '0' filter-value='4') 文档
-                span(class='filterSpan' filter-click = '0' filter-value='5') 应用
-                span(class='filterSpan' filter-click = '0' filter-value='7') 下载
-                span(class='filterSpan' filter-click = '0' filter-value='6') 其他
-        tr
-            td
-                span(id='sortText') 排序:
-                span(class='sortSpan' sort-click = '1' sort-value=0 style='background-color: #CCCCCC;color: white') 综合
-                span(class='sortSpan' sort-click = '0' sort-value=1) 最新
+    table(class='ui celled table' )
+        thead
+            tr
+                th(class='ten wide')
+                    span(id='filterList') 搜索结果
+                    if results.totalRecoders < 50
+                        span(id='filterMsg') （结果较少，请减少或替换搜索关键字）
+        tbody
+            tr
+                td
+                    span(id='filterText') 筛选:
+                    span(class='filterSpan' filter-click = '1' filter-value='9' style='background-color: #CCCCCC;color: white') 全部
+                    span(class='filterSpan' filter-click = '0' filter-value='1') 视频
+                    span(class='filterSpan' filter-click = '0' filter-value='2') 音乐
+                    span(class='filterSpan' filter-click = '0' filter-value='3') 图片
+                    span(class='filterSpan' filter-click = '0' filter-value='4') 文档
+                    span(class='filterSpan' filter-click = '0' filter-value='5') 应用
+                    span(class='filterSpan' filter-click = '0' filter-value='7') 下载
+                    span(class='filterSpan' filter-click = '0' filter-value='6') 其他
+            tr
+                td
+                    span(id='sortText') 排序:
+                    span(class='sortSpan' sort-click = '1' sort-value=0 style='background-color: #CCCCCC;color: white') 综合
+                    span(class='sortSpan' sort-click = '0' sort-value=1) 最新

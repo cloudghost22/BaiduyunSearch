@@ -7,7 +7,7 @@ div(class='resultDiv')
         thead
             tr
                 th(class='ten wide') 文件名称
-                th(class='two wide center aligned') 分享人
+                //th(class='two wide center aligned') 分享人
                 th(class='two wide center aligned')  类型
                 th(class='two wide center aligned')  大小
         tbody
@@ -18,12 +18,12 @@ div(class='resultDiv')
                             - var title = result.title;
                             a(class='text' href=`/result/?view=${result.ID}` target='_blank')
                                 !=  title
-                        td(class='center aligned') #{result.username}
+                        //td(class='center aligned') #{result.username}
                         td(class='center aligned') #{result.category}
                         td(class='center aligned') #{result.size}
             else
                 tr
-                    td
+                    //td
                     td
                     td
                     td

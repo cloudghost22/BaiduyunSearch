@@ -38,13 +38,15 @@ let sphinxSearch = function (str,idx=1,filter=9,sort=0) {
     sphinx.Query(convertQueryStr(str),(err,result)=>{
         if(err) throw err;
         // console.log(result);
-        if(result.total_found != 0 && result.matches != ''){
+        // console.log(result.matches.length);
+        if(result.matches.length > 0 && result.total_found >0){
             sSearch(getIdsFromResult(result))
                 .then(res=>{
                     res.total = result.total_found;
                     deferred.resolve(res);
                 });
-        }else if(result.total_found != 0 && result.matches == ''){
+        }
+        else if(result.matches.length == 0 && result.total_found >0){
             deferred.resolve('finish');
         }
         else{
