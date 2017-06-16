@@ -1,0 +1,19 @@
+div(class='newShareDiv')
+    table(class="ui celled table" id='newShareList')
+        thead
+            tr
+                th(class='ten wide') 最新更新
+                //th(class='two wide center aligned') 分享人
+                th(class='two wide center aligned')  类型
+                th(class='two wide center aligned')  大小
+        tbody
+            each result in hots[1]
+                tr
+                    td
+                        - var title = result.title;
+                        a(class='text' href=`/result/?view=${result.ID}` target='_blank')
+                            !=  title
+                    //td(class='center aligned') #{result.username}
+                    td(class='center aligned') #{result.category}
+                    td(class='center aligned') #{result.size}
+

@@ -8,6 +8,8 @@ let search = require('../db/dbHelper').search;
 let getHot = require('../db/dbHelper').getHot;
 let parseAllShare = require('../common/func').parseAllShare;
 let sphinxSearch = require('../sphinx/sphinx').sphinxSearch;
+let saveSearch = require('../db/dbHelper').saveSearch;
+let mainAll = require('../db/dbHelper').mainAll;
 
 router.get('/', function (req, res, next) {
     let searchValue = req.query.search;
@@ -32,8 +34,10 @@ router.get('/', function (req, res, next) {
 
             });
     }else {
-        getHot().then((result)=>{
+
+        mainAll().then((result)=>{
             // console.log(result);
+            result[1] = parseAllShare(result[1], '');
             res.render('main',{hots:result});
         });
 
@@ -43,6 +47,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     let searchvalue = req.fields.searchValue;
+    saveSearch(searchvalue);
     res.redirect(`/?search=${searchvalue}`);
 });
 

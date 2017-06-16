@@ -5,105 +5,10 @@ block content
     include ./component/search
 
     if hots
-        div(class='filterDiv')
-            table(class='ui celled table' id='hotTable')
-                thead
-                    tr
-                        th(class='ten wide' colspan=5)
-                            span(id='filterList') 热门推荐
-                tbody
-                    tr
-                        td
-                            a(class='hotList' href = `/?search=${hots[0].title}` target='_blank')  #{hots[0].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[1].title}` target='_blank')  #{hots[1].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[2].title}` target='_blank')  #{hots[2].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[3].title}` target='_blank')  #{hots[3].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[4].title}` target='_blank')  #{hots[4].title}
-                    tr
-                        td
-                            a(class='hotList' href = `/?search=${hots[5].title}` target='_blank')  #{hots[5].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[6].title}` target='_blank')  #{hots[6].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[7].title}` target='_blank')  #{hots[7].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[8].title}` target='_blank')  #{hots[8].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[9].title}` target='_blank')  #{hots[9].title}
-                    tr
-                        td
-                            a(class='hotList' href = `/?search=${hots[10].title}` target='_blank')  #{hots[10].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[11].title}` target='_blank')  #{hots[11].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[12].title}` target='_blank')  #{hots[12].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[13].title}` target='_blank')  #{hots[13].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[14].title}` target='_blank')  #{hots[14].title}
-                    tr
-                        td
-                            a(class='hotList' href = `/?search=${hots[15].title}` target='_blank')  #{hots[15].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[16].title}` target='_blank')  #{hots[16].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[17].title}` target='_blank')  #{hots[17].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[18].title}` target='_blank')  #{hots[18].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[19].title}` target='_blank')  #{hots[19].title}
-                    tr
-                        td
-                            a(class='hotList' href = `/?search=${hots[20].title}` target='_blank')  #{hots[20].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[21].title}` target='_blank')  #{hots[21].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[22].title}` target='_blank')  #{hots[22].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[23].title}` target='_blank')  #{hots[23].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[24].title}` target='_blank')  #{hots[24].title}
-                    tr
-                        td
-                            a(class='hotList' href = `/?search=${hots[25].title}` target='_blank')  #{hots[25].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[26].title}` target='_blank')  #{hots[26].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[27].title}` target='_blank')  #{hots[27].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[28].title}` target='_blank')  #{hots[28].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[29].title}` target='_blank')  #{hots[29].title}
-                    tr
-                        td
-                            a(class='hotList' href = `/?search=${hots[30].title}` target='_blank')  #{hots[30].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[31].title}` target='_blank')  #{hots[31].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[32].title}` target='_blank')  #{hots[32].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[33].title}` target='_blank')  #{hots[33].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[34].title}` target='_blank')  #{hots[34].title}
-                    tr
-                        td
-                            a(class='hotList' href = `/?search=${hots[35].title}` target='_blank')  #{hots[35].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[36].title}` target='_blank')  #{hots[36].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[37].title}` target='_blank')  #{hots[37].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[38].title}` target='_blank')  #{hots[38].title}
-                        td
-                            a(class='hotList' href = `/?search=${hots[39].title}` target='_blank')  #{hots[39].title}
+        include ./component/hot
+        include ./component/newShare
     div(class='dividerPages')
     if results
-        //div(class='shareDiv')
-        //    div(class="ui horizontal divider" id='searchDivider') 搜索结果
         include ./component/filter
         div(class='ui huge selection celled list' id='tableList')
             include ./component/table

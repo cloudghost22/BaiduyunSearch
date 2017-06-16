@@ -141,8 +141,31 @@ let getHot = function () {
     return deferred.promise;
 };
 
+let getLatest = function () {
+    let deferred = q.defer();
+    //let searchValueStr = convertQueryStr(searchValue);
+    let queryStr = `select * from share order by id desc limit 30;`;
+    // console.log(queryStr)
+    pool.getConnection((err, conn) => {
+        "use strict";
+        if (err) deferred.reject(err);
+        conn.query(queryStr, (err, result) => {
+            conn.release();
+            // console.log(result);
+            deferred.resolve(result);
+        });
+    });
+    return deferred.promise;
+};
+
+let mainAll = function () {
+  return q.all([getHot(),getLatest()]);
+};
+
 module.exports.searchJson = searchJson;
 module.exports.search = search;
 module.exports.viewShare = viewShare;
 module.exports.sphinxSearch = sphinxSearch;
 module.exports.getHot = getHot;
+module.exports.saveSearch = saveSearch;
+module.exports.mainAll = mainAll;

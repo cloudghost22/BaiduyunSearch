@@ -86,7 +86,7 @@ a:hover {
     visibility: hidden;
 }
 
-.filterDiv {
+.filterDiv,.newShareDiv {
     padding-top: 1.5em;
 }
 
@@ -94,10 +94,11 @@ a:hover {
     color: red;
 }
 
-.resultDiv, .filterDiv {
+.resultDiv, .filterDiv,.newShareDiv {
     width: 70%;
     margin: auto;
 }
+
 
 .hotDiv {
     width: 70%;
@@ -190,12 +191,12 @@ em {
     color: #c00;
 }
 
-#filterText, #sortText, #filterList {
+#filterText, #sortText, #filterList,#newShareList th{
     font-size: 20px;
     margin: 1em;
 }
 
-#filterList {
+#filterList,#newShareList th {
     font-weight: bold;
 }
 
