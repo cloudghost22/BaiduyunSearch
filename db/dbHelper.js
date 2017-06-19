@@ -141,10 +141,10 @@ let getHot = function () {
     return deferred.promise;
 };
 
-let getLatest = function () {
+let getLatest = function (number = 30,category = 9) {
     let deferred = q.defer();
     //let searchValueStr = convertQueryStr(searchValue);
-    let queryStr = `select * from share order by id desc limit 30;`;
+    let queryStr = `select * from share order by id desc limit ${number};`;
     // console.log(queryStr)
     pool.getConnection((err, conn) => {
         "use strict";
@@ -162,10 +162,31 @@ let mainAll = function () {
   return q.all([getHot(),getLatest()]);
 };
 
+let getHotByType = function (type) {
+    let deferred = q.defer();
+    let queryStr = `select * from hottop where type = '${type}' and LEFT(getTime,10) = curdate()  LIMIT 10;`;
+    pool.getConnection((err, conn) => {
+        "use strict";
+        if (err) deferred.reject(err);
+        conn.query(queryStr, (err, result) => {
+            conn.release();
+            // console.log(result);
+            deferred.resolve(result);
+        });
+    });
+    return deferred.promise;
+};
+
+let getAllHot = function () {
+    return q.all([getHotByType('xiaoshuo'),getHotByType('movie'),getHotByType('tv'),getHotByType('zongyi'),getHotByType('cartoon'),getHotByType('music')]);
+};
+
 module.exports.searchJson = searchJson;
 module.exports.search = search;
 module.exports.viewShare = viewShare;
 module.exports.sphinxSearch = sphinxSearch;
 module.exports.getHot = getHot;
+module.exports.getLatest = getLatest;
 module.exports.saveSearch = saveSearch;
 module.exports.mainAll = mainAll;
+module.exports.getAllHot = getAllHot;

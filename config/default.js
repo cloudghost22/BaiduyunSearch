@@ -7,8 +7,8 @@ module.exports={
         "host":"localhost",
         "user":"root",
         "password":"qazwsx",
-        "database":"test"
+        "database":"baiduyun"
     },
     pageNumber:10,
-    mainTable:'share_new'
+    mainTable:'share'
 };

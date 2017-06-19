@@ -1,0 +1,72 @@
+extends layout
+
+block content
+    include ./component/resultSearch
+    div(class='hotMenu')
+        div(class='hotMenuDiv')
+            table(class='ui celled table' id='movieTable')
+                thead
+                    tr
+                        th(class='ten wide' colspan=5)
+                            span(class='hotList') 热门电影
+                tbody
+                    each result in results[1]
+                        tr
+                            td
+                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+        div(class='hotMenuDiv')
+            table(class='ui celled table' id='tvTable')
+                thead
+                    tr
+                        th(class='ten wide' colspan=5)
+                            span(class='hotList') 热门电视剧
+                tbody
+                    each result in results[2]
+                        tr
+                            td
+                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+        div(class='hotMenuDiv')
+            table(class='ui celled table' id='zongyiTable')
+                thead
+                    tr
+                        th(class='ten wide' colspan=5)
+                            span(class='hotList') 热门综艺
+                tbody
+                    each result in results[3]
+                        tr
+                            td
+                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+        div(class='hotMenuDiv')
+            table(class='ui celled table' id='xiaoshuoTable')
+                thead
+                    tr
+                        th(class='ten wide' colspan=5)
+                            span(class='hotList') 热门漫画
+                tbody
+                    each result in results[4]
+                        tr
+                            td
+                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+        div(class='hotMenuDiv')
+            table(class='ui celled table' id='cartoonTable')
+                thead
+                    tr
+                        th(class='ten wide' colspan=5)
+                            span(class='hotList') 热门音乐
+                tbody
+                    each result in results[5]
+                        tr
+                            td
+                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+        div(class='hotMenuDiv')
+            table(class='ui celled table' id='musicTable')
+                thead
+                    tr
+                        th(class='ten wide' colspan=5)
+                            span(class='hotList') 热门小说
+                tbody
+                    each result in results[0]
+                        tr
+                            td
+                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+    div(class='dividerPages')

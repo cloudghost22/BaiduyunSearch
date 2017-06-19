@@ -34,7 +34,6 @@ router.get('/', function (req, res, next) {
 
             });
     }else {
-
         mainAll().then((result)=>{
             // console.log(result);
             result[1] = parseAllShare(result[1], '');

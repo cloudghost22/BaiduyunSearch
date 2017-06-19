@@ -1,13 +1,14 @@
-form(class='ui form' method='post')
-    div(class='ui grid')
-        div(class='four wide column right floated')
-            if results
-                img(src='./images/logo-min.png' class='logomin-img'  alt='91百度云')
-        div(class='eight wide column centered')
-            if results
-                input(value=`${results.searchValue} ` type='text' name='searchValue' id='searchValue')
-            else
-                input(placeholder='搜索百度网盘的分享' type='text' name='searchValue' id='searchValue')
-        div(class='four wide column left floated')
-            input(type='submit' class='ui button' id='searchBtn' value='搜索')
+div(class='miniSearch')
+    form(class='ui form' method='post')
+        div(class='ui grid')
+            div(class='four wide column right floated')
+                if results
+                    img(src='./images/logo-min.png' class='logomin-img'  alt='91百度云')
+            div(class='eight wide column centered')
+                if results
+                    input(value=`${results.searchValue} ` type='text' name='searchValue' id='searchValue')
+                else
+                    input(placeholder='搜索百度网盘的分享' type='text' name='searchValue' id='searchValue')
+            div(class='four wide column left floated')
+                input(type='submit' class='ui button' id='searchBtn' value='搜索')
 

@@ -14,7 +14,7 @@ const sphinx = new Sphinx({
     port: 9312 // default sphinx TCP port
 });
 
-let sphinxSearch = function (str,idx=1,filter=9,sort=0) {
+let sphinxSearch = function (str,idx=1,filter=9,sort=0,getNumber=0) {
     let deferred = q.defer();
     //set the match mode
     //sphinx.SetMatchMode(Sphinx.SPH_MATCH_ANY);
@@ -32,7 +32,12 @@ let sphinxSearch = function (str,idx=1,filter=9,sort=0) {
     //set the fetch recoders number
     idx = idx - 1;
     let offset = idx * config.pageNumber;
-    sphinx.SetLimits(offset,config.pageNumber);
+    if(getNumber>0){
+        sphinx.SetLimits(offset,getNumber);
+    }else {
+        sphinx.SetLimits(offset,config.pageNumber);
+    }
+
 
     // console.log(sphinx);
     sphinx.Query(convertQueryStr(str),(err,result)=>{
