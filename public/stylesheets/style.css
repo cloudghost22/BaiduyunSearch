@@ -60,10 +60,49 @@ a:hover {
     height: 70%;
 }
 .searchDiv{
+    width: 100%;
+    margin: auto;
+}
+
+.searchLogBox{
+    width: 20%;
+    display: block;
+    float: left;
+    text-align: center;
+    padding-right: 0.5em;
+}
+.searchInput{
+    width: 60%;
+    display: block;
+    float: left;
+    text-align: center;
+}
+.searchInputIndex{
     width: 70%;
+    display: block;
+    float: left;
+    text-align: center;
+    padding-left: 8%;
+}
+.searchBtnDivIndex{
+    width: 20%;
+    display: block;
+    float: left;
+    text-align: center;
+    padding-right: 5%;
+}
+#searchValue,#searchBtn{
+    line-height: 1.5em;
+}
+
+#searchBtn{
+    width: 80%
 }
 .searchBtnDiv{
-    width: 30%;
+    width: 15%;
+    display: block;
+    float: left;
+    text-align: center;
 }
 
 .footer {
@@ -100,15 +139,19 @@ a:hover {
     clear: both;
 }
 
+.clear{
+    clear: both;
+}
 .miniSearch{
-    width: 100%;
+    width: 80%;
     overflow: hidden;
     padding-left: 3em;
-    padding-top: 2em;
+    padding-top: 1em;
+    margin: auto;
 }
 
-.filterDiv,.newShareDiv,.hotMenuDiv {
-    padding-top: 1.5em;
+.newShareDiv,.hotMenuDiv {
+    padding-top: 0.5em;
 }
 
 #filterMsg {
@@ -149,7 +192,7 @@ a:hover {
     margin-right: auto;
 }
 
-#menuDiv a {
+#menuDiv a ,#addFav{
     cursor: pointer;
 }
 
@@ -243,10 +286,7 @@ a:hover {
 .logo-box {
     width: 80%;
     height: 70%;
-    margin-top: 5%;
-    margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 5% auto 10px auto;
 }
 
 .logo-img {
@@ -254,9 +294,9 @@ a:hover {
     width: 300px;
 }
 
-.logomin-img {
-    float: right;
-}
+/*.logomin-img {*/
+    /*float: right;*/
+/*}*/
 
 .textCenter {
     float: left;
@@ -284,6 +324,11 @@ em {
 
 .hotList{
     margin: 1em;
+}
+
+.topThree{
+    color: orange;
+    font-weight: bold;
 }
 
 #filterList,#newShareList th {

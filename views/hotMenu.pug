@@ -10,10 +10,13 @@ block content
                         th(class='ten wide' colspan=5)
                             span(class='hotList') 热门电影
                 tbody
-                    each result in results[1]
+                    each result,index in results[1]
                         tr
                             td
-                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                if index in [1, 2, 3]
+                                    a(class='hotList topThree' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                else
+                                    a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
         div(class='hotMenuDiv')
             table(class='ui celled table' id='tvTable')
                 thead
@@ -21,10 +24,13 @@ block content
                         th(class='ten wide' colspan=5)
                             span(class='hotList') 热门电视剧
                 tbody
-                    each result in results[2]
+                    each result,index in results[2]
                         tr
                             td
-                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                if index in [1, 2, 3]
+                                    a(class='hotList topThree' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                else
+                                    a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
         div(class='hotMenuDiv')
             table(class='ui celled table' id='zongyiTable')
                 thead
@@ -32,10 +38,13 @@ block content
                         th(class='ten wide' colspan=5)
                             span(class='hotList') 热门综艺
                 tbody
-                    each result in results[3]
+                    each result,index in results[3]
                         tr
                             td
-                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                if index in [1, 2, 3]
+                                    a(class='hotList topThree' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                else
+                                    a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
         div(class='hotMenuDiv')
             table(class='ui celled table' id='xiaoshuoTable')
                 thead
@@ -43,10 +52,13 @@ block content
                         th(class='ten wide' colspan=5)
                             span(class='hotList') 热门漫画
                 tbody
-                    each result in results[4]
+                    each result,index in results[4]
                         tr
                             td
-                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                if index in [1, 2, 3]
+                                    a(class='hotList topThree' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                else
+                                    a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
         div(class='hotMenuDiv')
             table(class='ui celled table' id='cartoonTable')
                 thead
@@ -54,10 +66,13 @@ block content
                         th(class='ten wide' colspan=5)
                             span(class='hotList') 热门音乐
                 tbody
-                    each result in results[5]
+                    each result,index in results[5]
                         tr
                             td
-                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                if index in [1, 2, 3]
+                                    a(class='hotList topThree' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                else
+                                    a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
         div(class='hotMenuDiv')
             table(class='ui celled table' id='musicTable')
                 thead
@@ -65,8 +80,11 @@ block content
                         th(class='ten wide' colspan=5)
                             span(class='hotList') 热门小说
                 tbody
-                    each result in results[0]
+                    each result,index in results[0]
                         tr
                             td
-                                a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                if index in [1,2,3]
+                                    a(class='hotList topThree' href = `/?search=${result.title}` target='_blank') #{result.title}
+                                else
+                                    a(class='hotList' href = `/?search=${result.title}` target='_blank') #{result.title}
     div(class='dividerPages')
