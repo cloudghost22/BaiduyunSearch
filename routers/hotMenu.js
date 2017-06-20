@@ -4,15 +4,27 @@
 var express = require('express');
 var router = express.Router();
 let getAllHot = require('../db/dbHelper').getAllHot;
+let getHotFromBaidu = require('../common/getHot').getHotAllfromBaidu;
+let savehot = require('../db/dbHelper').saveHot;
 
 router.get('/', function (req, res) {
     getAllHot()
         .then((result) => {
             // console.log(result);
-            if (result.length > 0) {
+            if (result[0].length > 0) {
                 res.render('hotMenu', {results: result});
             } else {
-                res.render('404');
+                getHotFromBaidu()
+                    .then((result) => {
+                        savehot(result)
+                            .then(() => {
+                                getAllHot()
+                                    .then((r) => {
+                                        res.render('hotMenu', {results: r});
+                                    })
+                            });
+                    });
+                // res.render('404');
             }
         });
 });

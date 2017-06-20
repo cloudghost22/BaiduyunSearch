@@ -181,6 +181,43 @@ let getAllHot = function () {
     return q.all([getHotByType('xiaoshuo'),getHotByType('movie'),getHotByType('tv'),getHotByType('zongyi'),getHotByType('cartoon'),getHotByType('music')]);
 };
 
+
+//save the update users
+let saveHot = function (objs) {
+    let deferred = q.defer();
+    let saveSql = 'INSERT INTO hotTop(title,author,type) VALUES ';
+    let deleteSql = `delete from hottop where LEFT(getTime,10) = SUBDATE(curdate(),2);`;
+    let updateStr = '';
+    for (let obj of objs) {
+        for(let i of obj){
+            let temp = '\'' + i.title + '\',\'' + i.author + '\',\'' + i.type + '\'';
+            temp = '(' + temp + ')';
+            if (updateStr) {
+                updateStr += ',' + temp;
+            } else {
+                updateStr += temp;
+            }
+        }
+    }
+    saveSql += updateStr + ';';
+    saveSql += deleteSql;
+    // console.log('hotTop save Sql' + saveSql);
+    pool.getConnection((err, conn) => {
+        "use strict";
+        conn.release();
+        if (err) deferred.reject(err);
+        conn.query(saveSql, (err, result) => {
+            if (err) {
+                console.log('Saving hotTop error,sql is:' + saveSql);
+                deferred.resolve();
+            } else {
+                deferred.resolve(result.affectedRows);
+            }
+        });
+    });
+    return deferred.promise;
+};
+
 module.exports.searchJson = searchJson;
 module.exports.search = search;
 module.exports.viewShare = viewShare;
@@ -190,3 +227,4 @@ module.exports.getLatest = getLatest;
 module.exports.saveSearch = saveSearch;
 module.exports.mainAll = mainAll;
 module.exports.getAllHot = getAllHot;
+module.exports.saveHot = saveHot;
