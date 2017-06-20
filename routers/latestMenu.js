@@ -19,4 +19,10 @@ router.get('/', function (req, res) {
         });
 });
 
+router.post('/', function (req, res, next) {
+    let searchvalue = req.fields.searchValue;
+    // console.log(searchvalue);
+    res.redirect(`/?search=${searchvalue}`);
+});
+
 module.exports = router;
