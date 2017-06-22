@@ -127,7 +127,7 @@ let sphinxSearch = function (idArr) {
 let getHot = function () {
     let deferred = q.defer();
     //let searchValueStr = convertQueryStr(searchValue);
-    let queryStr = `select * from (select title,type from hottop where type = 'movie' ORDER BY id,getTime desc LIMIT 20) x UNION ALL select * from (select title,type from hottop where type = 'tv' ORDER BY id,getTime desc LIMIT 20) y;`;
+    let queryStr = `select * from (select title,type from hottop where type = 'movie' ORDER BY getTime desc LIMIT 20) x UNION ALL select * from (select title,type from hottop where type = 'tv' ORDER BY getTime desc LIMIT 20) y;`;
     // console.log(queryStr)
     pool.getConnection((err, conn) => {
         "use strict";
@@ -200,7 +200,7 @@ let saveHot = function (objs) {
         }
     }
     saveSql += updateStr + ';';
-    saveSql += deleteSql;
+    // saveSql += deleteSql;
     // console.log('hotTop save Sql' + saveSql);
     pool.getConnection((err, conn) => {
         "use strict";
@@ -208,6 +208,7 @@ let saveHot = function (objs) {
         if (err) deferred.reject(err);
         conn.query(saveSql, (err, result) => {
             if (err) {
+                // console.log(err);
                 console.log('Saving hotTop error,sql is:' + saveSql);
                 deferred.resolve();
             } else {
