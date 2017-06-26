@@ -14,7 +14,7 @@ const sphinx = new Sphinx({
     port: 9312 // default sphinx TCP port
 });
 
-let sphinxSearch = function (str,idx=1,filter=9,sort=0,getNumber=0) {
+let sphinxSearch = function (str,idx=1,filter=9,sort=0,getNumber=0,recommand=0) {
     let deferred = q.defer();
     //set the match mode
     //sphinx.SetMatchMode(Sphinx.SPH_MATCH_ANY);
@@ -40,7 +40,7 @@ let sphinxSearch = function (str,idx=1,filter=9,sort=0,getNumber=0) {
 
 
     // console.log(sphinx);
-    sphinx.Query(convertQueryStr(str),(err,result)=>{
+    sphinx.Query(convertQueryStr(str,recommand),(err,result)=>{
         if(err) throw err;
         // console.log(result);
         // console.log(result.matches.length);
@@ -72,7 +72,7 @@ let getIdsFromResult = function(result = {}) {
         // .filter(id => {typeof (id) == 'Number'});
 };
 
-let convertQueryStr = function (queryString) {
+let convertQueryStr = function (queryString,recommand) {
     let qs = queryString.trim().substr(0, 30);
     // let qString = qs.replace(/[:：\s,，。./]/g, "|").split('|');
     // console.log(qString);
@@ -85,12 +85,25 @@ let convertQueryStr = function (queryString) {
     //console.timeEnd('fenci');
 
     let qStringArr = '';
-    for (let i of qString) {
-        if (i) {
-            qStringArr += (qStringArr.length > 0 ? ' ' : '') + i;
+    if(!recommand){
+        for (let i of qString) {
+            if (i) {
+                qStringArr += (qStringArr.length > 0 ? ' ' : '') + i;
+            }
+        }
+    }else {
+        if(qString.length > 3){
+            qStringArr = qString[2]+ ' ' + qString[3];
+        }else {
+            for (let i of qString) {
+                if (i) {
+                    qStringArr += (qStringArr.length > 0 ? ' ' : '') + i;
+                }
+            }
         }
     }
-    //console.log(qStringArr);
+
+    // console.log(qStringArr);
     return qStringArr;
 };
 

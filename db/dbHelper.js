@@ -186,7 +186,7 @@ let getAllHot = function () {
 let saveHot = function (objs) {
     let deferred = q.defer();
     let saveSql = 'INSERT INTO hottop(title,author,type) VALUES ';
-    let deleteSql = `delete from hottop where LEFT(getTime,10) = SUBDATE(curdate(),2);`;
+    let deleteSql = `delete from hottop where LEFT(getTime,10) < SUBDATE(curdate(),2);`;
     let updateStr = '';
     for (let obj of objs) {
         for(let i of obj){

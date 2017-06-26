@@ -6,14 +6,28 @@ var express = require('express');
 var router = express.Router();
 let viewShare = require('../db/dbHelper').viewShare;
 let parseShare = require('../common/func').parseShare;
+let parseAllShare = require('../common/func').parseAllShare;
+let sphinxSearch = require('../sphinx/sphinx').sphinxSearch;
+let q = require('q');
 
 router.get('/', function (req, res) {
     let shareid = req.query.view;
-    viewShare(shareid)
+    let keyword = req.query.kw;
+    // keyword = keyword.substring(0,8);
+    // console.log(keyword);
+    resultAll(shareid, keyword)
         .then((result) => {
             if (result.length > 0) {
-                let parseResult = parseShare(result);
-                res.render('result', {results: parseResult});
+                result[0] = parseShare(result[0]);
+                if (result[1] == 'zero' || result == 'finish') {
+                    result[1] = [];
+                }
+                else {
+                    result[1] = parseAllShare(result[1], keyword);
+                    result[1].kw = keyword;
+                }
+                // console.log(result);
+                res.render('result', {results: result});
             } else {
                 res.render('404');
             }
@@ -25,5 +39,9 @@ router.post('/', function (req, res, next) {
     // console.log(searchvalue);
     res.redirect(`/?search=${searchvalue}`);
 });
+
+let resultAll = function (shareid, kw) {
+    return q.all([viewShare(shareid), sphinxSearch(kw, 1, 9, 1, 5, 1)]);
+};
 
 module.exports = router;

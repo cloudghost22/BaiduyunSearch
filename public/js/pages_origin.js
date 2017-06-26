@@ -12,7 +12,7 @@ $('#homePage').on("click", function () {
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
             for (var i = 0; i < msg.length - 1; i++) {
-                var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                var str = "<tr><td><a class=\'text\' href=\"/result/?kw="+searchValue+"&view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
                 // str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
                 str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
                 str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";
@@ -41,7 +41,7 @@ $('#prePage').on("click", function () {
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
             for (var i = 0; i < msg.length - 1; i++) {
-                var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                var str = "<tr><td><a class=\'text\' href=\"/result/?kw="+searchValue+"&view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
                 // str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
                 str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
                 str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";
@@ -77,7 +77,7 @@ $('#nextPage').on("click", function () {
                 $('#resultList tbody').remove();
                 $('#resultList').append('<tbody></tbody>');
                 for (var i = 0; i < msg.length - 1; i++) {
-                    var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                    var str = "<tr><td><a class=\'text\' href=\"/result/?kw="+searchValue+"&view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
                     // str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
                     str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
                     str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";
@@ -148,7 +148,7 @@ $('.filterSpan').on('click', function () {
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
             for (var i = 0; i < msg.length - 1; i++) {
-                var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                var str = "<tr><td><a class=\'text\' href=\"/result/?kw="+searchValue+"&view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
                 // str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
                 str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
                 str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";
@@ -181,7 +181,7 @@ $('.sortSpan').on('click', function () {
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
             for (var i = 0; i < msg.length - 1; i++) {
-                var str = "<tr><td><a class=\'text\' href=\"/result/?view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
+                var str = "<tr><td><a class=\'text\' href=\"/result/?kw="+searchValue+"&view=" + msg[i].ID + "\" target=\'_blank\'>" + msg[i].title + "</a></td>";
                 // str += "<td class=\'center aligned\'>" + msg[i].username + "</td>";
                 str += "<td class=\'center aligned\'>" + msg[i].category + "</td>";
                 str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";

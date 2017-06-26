@@ -15,7 +15,7 @@ block content
                     tr
                         td
                             - var title = result.title;
-                            a(class='text' href=`/result/?view=${result.ID}` target='_blank')
+                            a(class='text' href=`/result/?view=${result.ID}&kw=${result.title}` target='_blank')
                                 !=  title
                         //td(class='center aligned') #{result.username}
                         td(class='center aligned') #{result.category}

@@ -1,4 +1,4 @@
-div(class='search-value' style='display:none;' id='search-value') #{results.searchValue}
+div(class='search-value' style='display:none;' id='search-value') #{results[0].searchValue}
 div(class='search-value' style='display:none;' id='pageNumber') 1
 div(id='shareDiv')
     div(id='shareTable')
@@ -6,19 +6,21 @@ div(id='shareDiv')
             thead
                 tr
                     th(colspan="2")
-                        div(class='ui header') #{results.title}
+                        div(class='ui header') #{results[0].title}
             tbody
                 tr
-                    td 分享人：#{results.username}
-                    td 分享时间：#{results.sharetime}
+                    td 分享人：#{results[0].username}
+                    td 分享时间：#{results[0].sharetime}
                 tr
-                    td 文件类型：#{results.category}
-                    td 文件大小：#{results.size}
+                    td 文件类型：#{results[0].category}
+                    td 文件大小：#{results[0].size}
                 tr
                     td(colspan="2" id='downloadButton')
                         span 下载地址:
-                        a(href=`/url?q=${results.id}` target='_blank' rel='noreferrer') 百度网盘
-                        a(href=`/url?q=${results.id}&t=1` target='_blank' rel='noreferrer') 百度网盘移动版
+                        a(href=`/url?q=${results[0].id}` target='_blank' rel='noreferrer') 百度网盘
+                        a(href=`/url?q=${results[0].id}&t=1` target='_blank' rel='noreferrer') 百度网盘移动版
     div(id='downloadDesc')
         p(id='downloadP') 下载说明:
-        p   <b>#{results.title}</b> 是其他用户分享在百度网盘的资源，本站并不保存该资源。可根据 <b>#{results.title}</b> 文件大小和后缀判断文件质量和安全，建议打开文件前先进行杀毒。您可以下载文件到电脑或者保存到自己的百度云盘账号。感谢您对【<b>91百度盘搜索</b>】的支持，本站专业提供百度云网盘资源搜索服务。
+        p   <b>#{results[0].title}</b> 是其他用户分享在百度网盘的资源，本站并不保存该资源。可根据 <b>#{results[0].title}</b> 文件大小和后缀判断文件质量和安全，建议打开文件前先进行杀毒。您可以下载文件到电脑或者保存到自己的百度云盘账号。感谢您对【<b>91百度盘搜索</b>】的支持，本站专业提供百度云网盘资源搜索服务。
+    include ./recommand
+div(class='clear')

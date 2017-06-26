@@ -1,5 +1,6 @@
 module.exports = function (app) {
     app.use("/",require('./main'));
+    app.use("/index",require('./main'));
     app.use("/result",require('./result'));
     app.use("/main",require('./main'));
     app.use("/pages",require('./pages'));
