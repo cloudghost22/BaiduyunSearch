@@ -9,7 +9,7 @@ let getHot = require('../db/dbHelper').getHot;
 let parseAllShare = require('../common/func').parseAllShare;
 let sphinxSearch = require('../sphinx/sphinx').sphinxSearch;
 let saveSearch = require('../db/dbHelper').saveSearch;
-let mainAll = require('../db/dbHelper').mainAll;
+let q = require('q');
 
 router.get('/', function (req, res, next) {
     let searchValue = req.query.search;
@@ -20,7 +20,6 @@ router.get('/', function (req, res, next) {
                 //console.log(result);
                 if(result == 'zero'){
                     let r = [];
-                    // res.push({ID:0,title:'1',category:'1',size:'1',username:'1'});
                     r.searchValue = searchValue;
                     r.totalRecoders = 0;
                     res.render('main', {results: r});
@@ -50,5 +49,9 @@ router.post('/', function (req, res, next) {
     res.redirect(`/?search=${searchvalue}`);
 });
 
+
+let mainAll = function () {
+    return q.all([getHot(), sphinxSearch('', 1, 9, 1, 30, 0)]);
+};
 
 module.exports = router;

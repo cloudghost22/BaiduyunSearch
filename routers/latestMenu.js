@@ -3,11 +3,12 @@
  */
 var express = require('express');
 var router = express.Router();
-let getLatest = require('../db/dbHelper').getLatest;
 let parseAllShare = require('../common/func').parseAllShare;
+let sphinxSearch = require('../sphinx/sphinx').sphinxSearch;
+let q = require('q');
 
 router.get('/', function (req, res) {
-    getLatest(50)
+    sphinxSearch('', 1, 9, 1, 50, 0)
         .then((result) => {
             // console.log(result)
             if (result.length > 0) {

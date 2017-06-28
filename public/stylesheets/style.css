@@ -258,7 +258,7 @@ a:hover {
     height: 100%;
 }
 
-#shareTable,.recommand {
+#shareTable{
     margin-top: 2em;
     width: 60%;
     float: left;
