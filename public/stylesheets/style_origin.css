@@ -129,6 +129,23 @@ a:hover {
     padding-right: 0.5em;
 }
 
+#weixin{
+    position: absolute;
+    top:4em;
+    right: 2em;
+}
+
+#weixin img{
+    max-width: 70%;
+    max-height: 70%;
+}
+
+#weixin2 img{
+    margin-left: 5em;
+    max-width: 70%;
+    max-height: 70%;
+}
+
 .footer a {
     color: #666 !important;
 }
