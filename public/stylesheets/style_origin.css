@@ -141,7 +141,7 @@ a:hover {
 }
 
 #weixin2 img{
-    margin-left: 5em;
+    margin-left: 3em;
     max-width: 70%;
     max-height: 70%;
 }
@@ -236,6 +236,12 @@ a:hover {
     color: #888;
     padding:0px;
     margin: 0;
+}
+
+.ad{
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .menus li a {
