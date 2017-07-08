@@ -87,5 +87,15 @@ let changeColor = function (searchValue,title) {
     return titleArr.join("").replace(/<\/em><em>/g,"");
 };
 
+let isPhone = function (userAgent) {
+   if(userAgent.indexOf("Mobile Safari") !== -1 || userAgent.indexOf("Android") !== -1 || userAgent.indexOf("Windows Phone 8") !== -1){
+       return true;
+   }
+   else {
+       return false;
+   }
+};
+
 module.exports.parseShare = parseShare;
 module.exports.parseAllShare = parseAllShare;
+module.exports.isPhone = isPhone;

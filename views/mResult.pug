@@ -1,0 +1,18 @@
+extends mLayout
+
+block content
+    div(class="weui-search-bar" id="search_bar")
+        form(class="weui-search-bar__form" method='post')
+            div(class="weui-search-bar__box")
+                i(class="weui-icon-search")
+                input(type="text" class="weui-search-bar__input" name='searchValue' id='searchValue' placeholder="搜索百度网盘分享。。。" )
+                a(href="javascript:" class="weui-icon-clear" id="search_clear")
+    div(class='search-value' style='display:none;' id='search-value') #{results[0].searchValue}
+    div(class='search-value' style='display:none;' id='pageNumber') 1
+    article(class="weui-article")
+        h1 #{results[0].title}
+        h2 分享人：#{results[0].username}
+        h2 分享时间：#{results[0].sharetime}
+        h2 文件类型：#{results[0].category}
+        h2 文件大小：#{results[0].size}
+        a(href=`/url?q=${results[0].id}&t=1` target='_blank' rel='noreferrer') 百度网盘移动版

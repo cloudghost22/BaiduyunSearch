@@ -1,0 +1,29 @@
+extends mLayout
+
+block content
+    //include ./mMenu
+    div(class="weui-search-bar" id="search_bar")
+        form(class="weui-search-bar__form" method='post')
+            div(class="weui-search-bar__box")
+                i(class="weui-icon-search")
+                input(type="text" class="weui-search-bar__input" name='searchValue' id='searchValue' placeholder="搜索百度网盘分享。。。" )
+                a(href="javascript:" class="weui-icon-clear" id="search_clear")
+    if hots
+        div(class="weui-cells__title") 热门推荐
+        div(class="weui-cells")
+            a(class="weui-cell weui-cell_access" href="javascript:;")
+                p 测试
+            div(class="weui-cell__ft")
+    div(class='dividerPages')
+    if results
+        //include ./component/filter
+        div(class="weui-cells__title") 文件名
+        if results.totalRecoders > 0
+            div(class="weui-cells")
+            each result in results
+                - var title = result.title;
+                a(class="weui-cell weui-cell_access" href=`/result/?view=${result.ID}&kw=${results.searchValue}` target='_blank')
+                    div(class="weui-cell__bd")
+                        p
+                            !=  title
+                    div(class="weui-cell__ft")

@@ -7,12 +7,14 @@ var router = express.Router();
 let viewShare = require('../db/dbHelper').viewShare;
 let parseShare = require('../common/func').parseShare;
 let parseAllShare = require('../common/func').parseAllShare;
+let isPhone = require('../common/func').isPhone;
 let sphinxSearch = require('../sphinx/sphinx').sphinxSearch;
 let q = require('q');
 
 router.get('/', function (req, res) {
     let shareid = req.query.view;
     let keyword = req.query.kw;
+    let userAgent = req.headers['user-agent'];
     // keyword = keyword.substring(0,8);
     // console.log(keyword);
     resultAll(shareid, keyword)
@@ -27,7 +29,12 @@ router.get('/', function (req, res) {
                     result[1].kw = keyword;
                 }
                 // console.log(result);
-                res.render('result', {results: result});
+                if (isPhone(userAgent)){
+                    res.render('mResult', {results: result});
+                }else {
+                    res.render('result', {results: result});
+                }
+
             } else {
                 res.render('404');
             }
