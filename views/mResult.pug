@@ -1,18 +1,35 @@
 extends mLayout
 
 block content
+    div(class='mLogo')
+        a(href='/')
+            img(src='/images/logo-min.png')
     div(class="weui-search-bar" id="search_bar")
         form(class="weui-search-bar__form" method='post')
             div(class="weui-search-bar__box")
                 i(class="weui-icon-search")
-                input(type="text" class="weui-search-bar__input" name='searchValue' id='searchValue' placeholder="搜索百度网盘分享。。。" )
+                input(type="text" class="weui-search-bar__input" name='searchValue' id='searchValue' placeholder="搜索百度网盘分享..." autocomplete='off' )
                 a(href="javascript:" class="weui-icon-clear" id="search_clear")
     div(class='search-value' style='display:none;' id='search-value') #{results[0].searchValue}
     div(class='search-value' style='display:none;' id='pageNumber') 1
-    article(class="weui-article")
+    article(class="weui-article" id='m-share')
         h1 #{results[0].title}
-        h2 分享人：#{results[0].username}
+        div(class='m-line')
+        h2 分享人：
+            span #{results[0].username}
         h2 分享时间：#{results[0].sharetime}
         h2 文件类型：#{results[0].category}
         h2 文件大小：#{results[0].size}
-        a(href=`/url?q=${results[0].id}&t=1` target='_blank' rel='noreferrer') 百度网盘移动版
+        h2 下载地址：
+            a(id='downloadButton' href=`/url?q=${results[0].id}&t=1` target='_blank' rel='noreferrer') 百度网盘移动版
+
+    div(class="weui-cells__title" id='m-title-div')
+        span(class='m-title') 相关推荐
+    div(class="weui-cells")
+        each result in results[1]
+            - var title = result.title;
+                a(class="weui-cell weui-cell_access" href=`/result/?view=${result.ID}&kw=${results.searchValue}` target='_blank')
+                    div(class="weui-cell__bd")
+                        p
+                            !=  title
+                    div(class="weui-cell__ft")

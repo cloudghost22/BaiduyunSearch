@@ -33,6 +33,7 @@ router.get('/', function (req, res) {
                     res.render('mResult', {results: result});
                 }else {
                     res.render('result', {results: result});
+                    // res.render('mResult', {results: result});
                 }
 
             } else {

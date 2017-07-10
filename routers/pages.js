@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
                 result = parseAllShare(result, searchValue);
                 res.send(result);
             });*/
-        sphinxSearch(searchValue, searchIndex, filterValue,sortValue*1)
+        sphinxSearch(searchValue, searchIndex, filterValue*1,sortValue*1)
             .then((result) => {
                 // console.log(result);
                 if(result == 'zero'){

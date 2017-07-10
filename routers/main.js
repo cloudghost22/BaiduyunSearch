@@ -16,7 +16,7 @@ router.get('/', function (req, res, next) {
     let searchValue = req.query.search;
     let userAgent = req.headers['user-agent'];
     let host = req.headers['host'];
-    console.log(host);
+    // console.log(host);
     if(isPhone(userAgent) && (host == 'www.91baidupan.com' || host == 'm.91baidupan.com')){
         res.redirect(`m.91baidupan.com`);
     }

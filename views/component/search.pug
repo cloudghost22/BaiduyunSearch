@@ -8,7 +8,7 @@ div(class='miniSearch')
                     if results
                         input(value=`${results.searchValue} ` type='text' name='searchValue' id='searchValue')
                     else
-                        input(placeholder='搜索百度网盘的分享' type='text' name='searchValue' id='searchValue')
+                        input(placeholder='搜索百度网盘的分享' autocomplete='off' type='text' name='searchValue' id='searchValue')
                 div(class='searchBtnDiv')
                         input(type='submit' class='ui button' id='searchBtn' value='搜索')
                 div(class='dividerPages')

@@ -1,29 +1,64 @@
 extends mLayout
 
 block content
-    //include ./mMenu
+    div(class='mLogo')
+        a(href='/')
+            img(src='./images/logo-min.png')
     div(class="weui-search-bar" id="search_bar")
         form(class="weui-search-bar__form" method='post')
             div(class="weui-search-bar__box")
                 i(class="weui-icon-search")
-                input(type="text" class="weui-search-bar__input" name='searchValue' id='searchValue' placeholder="搜索百度网盘分享。。。" )
+                input(type="text" class="weui-search-bar__input" name='searchValue' id='searchValue' autocomplete='off' placeholder="搜索百度网盘分享..." )
                 a(href="javascript:" class="weui-icon-clear" id="search_clear")
     if hots
-        div(class="weui-cells__title") 热门推荐
+        div(class="weui-cells__title" id='m-title-div')
+            span(class='m-title') 热门推荐
         div(class="weui-cells")
-            a(class="weui-cell weui-cell_access" href="javascript:;")
-                p 测试
-            div(class="weui-cell__ft")
-    div(class='dividerPages')
-    if results
-        //include ./component/filter
-        div(class="weui-cells__title") 文件名
-        if results.totalRecoders > 0
-            div(class="weui-cells")
-            each result in results
+            a(class='weui-cell weui-cell_access' href = `/?search=${hots[0][0].title}` target='_blank')
+                div(class="weui-cell__bd") #{hots[0][0].title}
+                div(class="weui-cell__ft")
+            a(class='weui-cell weui-cell_access' href = `/?search=${hots[0][1].title}` target='_blank')
+                div(class="weui-cell__bd") #{hots[0][1].title}
+                div(class="weui-cell__ft")
+            a(class='weui-cell weui-cell_access' href = `/?search=${hots[0][2].title}` target='_blank')
+                div(class="weui-cell__bd")  #{hots[0][2].title}
+                div(class="weui-cell__ft")
+            a(class='weui-cell weui-cell_access' href = `/?search=${hots[0][20].title}` target='_blank')
+                div(class="weui-cell__bd") #{hots[0][20].title}
+                div(class="weui-cell__ft")
+            a(class='weui-cell weui-cell_access' href = `/?search=${hots[0][21].title}` target='_blank')
+                div(class="weui-cell__bd")  #{hots[0][21].title}
+                div(class="weui-cell__ft")
+            a(class='weui-cell weui-cell_access' href = `/?search=${hots[0][22].title}` target='_blank')
+                div(class="weui-cell__bd")  #{hots[0][22].title}
+                div(class="weui-cell__ft")
+        div(class="weui-cells__title" id='m-title-div')
+            span(class='m-title') 最新更新
+        div(class="weui-cells")
+            each result in hots[1]
                 - var title = result.title;
-                a(class="weui-cell weui-cell_access" href=`/result/?view=${result.ID}&kw=${results.searchValue}` target='_blank')
+                a(class="weui-cell weui-cell_access" href=`/result/?view=${result.ID}&kw=${result.title}` target='_blank')
                     div(class="weui-cell__bd")
                         p
                             !=  title
                     div(class="weui-cell__ft")
+    div(class='dividerPages')
+    if results
+        //include ./component/filter
+        div(class="weui-cells__title" id='m-title-div')
+            span(class='m-title') 文件名
+        if results.totalRecoders > 0
+            div(class="weui-cells")
+                each result in results
+                    - var title = result.title;
+                    a(class="weui-cell weui-cell_access" href=`/result/?view=${result.ID}&kw=${results.searchValue}` target='_blank')
+                        div(class="weui-cell__bd")
+                            p
+                                !=  title
+                        div(class="weui-cell__ft")
+            div(class='search-value' style='display:none;' id='search-value') #{results.searchValue}
+            div(class='search-value' style='display:none;' id='pageNumber') 1
+            div(class="ui right floated pagination menu" id='m-pages-div')
+                div(class="weui-btn weui-btn_mini weui-btn_primary" id='homePage' data-value='0' style='display:none;') 第一页
+                div(class="weui-btn weui-btn_mini weui-btn_primary" id='prePage' data-value='0' style='display:none;') 上一页
+                div(class="weui-btn weui-btn_mini weui-btn_primary" id='nextPage' data-value='1') 下一页
