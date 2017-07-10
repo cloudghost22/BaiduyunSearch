@@ -14,3 +14,4 @@ em { font-style: normal;  color: #c00;  }
 .m-footer-home i{background: url('../images/Home.png') center right no-repeat;background-size: 100% 100%;}
 .m-footer-phone i{background: url('../images/Phone.png') center right no-repeat;background-size: 100% 100%;}
 .m-footer-pc i{background-image: url('../images/pc.png');background-size: 100% 100%;}
+.m-calc{display: none;}
