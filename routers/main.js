@@ -17,10 +17,10 @@ router.get('/', function (req, res, next) {
     let userAgent = req.headers['user-agent'];
     let host = req.headers['host'];
     // console.log(host);
-    // if(isPhone(userAgent) &&  host != 'm.91baidupan.com'){
-    //     // res.redirect(`http://m.91baidupan.com`);
-    //     res.redirect(`http://10.15.33.70:3000`);
-    // }else{
+    if(isPhone(userAgent) &&  host != 'm.91baidupan.com'){
+        // res.redirect(`http://m.91baidupan.com`);
+        res.redirect(`http://10.15.33.70:3000`);
+    }else{
         if (searchValue) {
             sphinxSearch(searchValue)
                 .then(result => {
@@ -61,7 +61,7 @@ router.get('/', function (req, res, next) {
             });
 
         }
-    // }
+    }
     // console.log(searchValue);
 
 
