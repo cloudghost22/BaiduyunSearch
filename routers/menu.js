@@ -11,8 +11,13 @@ let sphinxSearch = require('../sphinx/sphinx').sphinxSearch;
 
 router.get('/', function (req, res, next) {
     let filterValue = req.query.type;
-    // console.log(filterValue);
-    sphinxSearch('', 0, filterValue, 1,50)
+    let page = req.query.p;
+    let index = 1;
+    let reg = /^[1-9]\d*$/;
+    if(reg.test(page)){
+        index = page;
+    }
+    sphinxSearch('', index, filterValue, 1,50)
         .then((result) => {
              // console.log(result);
             if (result == 'zero') {
@@ -28,6 +33,7 @@ router.get('/', function (req, res, next) {
                 res.send(r);
             } else {
                 result = parseAllShare(result, '');
+                result.typeID = filterValue;
                 res.render('menu', {results: result});
             }
         });

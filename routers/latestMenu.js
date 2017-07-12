@@ -8,7 +8,14 @@ let sphinxSearch = require('../sphinx/sphinx').sphinxSearch;
 let q = require('q');
 
 router.get('/', function (req, res) {
-    sphinxSearch('', 1, 9, 1, 50, 0)
+    let page = req.query.p;
+    let index = 1;
+    let reg = /^[1-9]\d*$/;
+    if(reg.test(page)){
+        index = page;
+    }
+    // console.log(index);
+    sphinxSearch('', index, 9, 1, 50, 0)
         .then((result) => {
             // console.log(result)
             if (result.length > 0) {

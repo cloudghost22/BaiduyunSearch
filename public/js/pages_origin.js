@@ -206,16 +206,25 @@ $('#searchValue').on('click',function () {
 $(function () {
     var url = window.location.href;
     var menuArr = ['main','hotMenu','latestMenu','menu?type=1','menu?type=2','menu?type=3','menu?type=4','menu?type=5','menu?type=7'];
-    var urlArr = url.split('/');
-    var subUrl = urlArr[urlArr.length-1];
     var flag = false;
     for(var i=0;i<menuArr.length;i++){
-        if(subUrl==menuArr[i]){
+        if(url.indexOf(menuArr[i]) > 0){
             $('.link').eq(i).css({"color":"#FFFFFF","background":"#4fc08d",'font-weight':'bold'});
             flag=true;
         }
     }
     if(!flag){
         $('.menus li .main').css({"color":"#FFFFFF","background":"#4fc08d",'font-weight':'bold'});
+    }
+
+    if(url.indexOf('latestMenu')>0 || url.indexOf('menu?type') > 0){
+        var idx = url.split('=')[2];
+        if(typeof(idx)=='undefined' ){
+            $('#menu-pages a').css({'font-weight':'normal'});
+            $('#menu-pages a').eq(0).css({"color":"#FFFFFF","background":"#4fc08d",'font-weight':'bold'});
+        }else {
+            $('#menu-pages a').css({'font-weight':'normal'});
+            $('#menu-pages a').eq(idx-1).css({"color":"#FFFFFF","background":"#4fc08d",'font-weight':'bold'});
+        }
     }
 });
