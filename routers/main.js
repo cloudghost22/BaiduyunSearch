@@ -39,8 +39,8 @@ router.get('/', function (req, res, next) {
                             res.render('mMain', {results: result});
                         }
                         else {
-                            // res.render('main', {results: result});
-                            res.render('mMain', {results: result});
+                            res.render('main', {results: result});
+                            // res.render('mMain', {results: result});
                         }
 
                     }
@@ -54,8 +54,8 @@ router.get('/', function (req, res, next) {
                     res.render('mMain', {hots: result});
                 }
                 else {
-                    //res.render('main', {hots: result});
-                    res.render('mMain', {hots: result});
+                    res.render('main', {hots: result});
+                    // res.render('mMain', {hots: result});
                 }
 
             });

@@ -127,7 +127,7 @@ let sphinxSearch = function (idArr) {
 let getHot = function () {
     let deferred = q.defer();
     //let searchValueStr = convertQueryStr(searchValue);
-    let queryStr = `select * from (select title,type from hottop where type = 'movie' ORDER BY getTime desc LIMIT 20) x UNION ALL select * from (select title,type from hottop where type = 'tv' ORDER BY getTime desc LIMIT 20) y;`;
+    let queryStr = `select * from (select title,type from hottop where type = 'movie' and LEFT(getTime,10) = curdate()   ORDER BY id  LIMIT 20) x UNION ALL select * from (select title,type from hottop where type = 'tv' and LEFT(getTime,10) = curdate()   ORDER BY id  LIMIT 20) y;`;
     // console.log(queryStr)
     pool.getConnection((err, conn) => {
         "use strict";

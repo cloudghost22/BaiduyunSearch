@@ -5,7 +5,12 @@ $('#homePage').on("click", function () {
     $.ajax({
         method: "GET",
         url: "/pages",
-        data: {search: searchValue, idx: "1", filter: filterValue, sort: sortValue}
+        data: {search: searchValue, idx: "1", filter: filterValue, sort: sortValue},
+        beforeSend:function () {
+            $('#homePage').css("display", 'none');
+            $('#prePage').css("display", 'none');
+            $('#nextPage').css("display", 'none');
+        }
     })
         .done(function (msg) {
             //console.log("Data Saved: " + msg);
@@ -23,6 +28,7 @@ $('#homePage').on("click", function () {
             $('#nextPage').attr('data-value', '2');
             $('#prePage').css("display", 'none');
             $('#homePage').css("display", 'none');
+            $('#nextPage').css("display", '');
         });
 });
 
@@ -34,10 +40,15 @@ $('#prePage').on("click", function () {
     $.ajax({
         method: "GET",
         url: "/pages",
-        data: {search: searchValue, idx: (pageNum * 1 - 1), filter: filterValue, sort: sortValue}
+        data: {search: searchValue, idx: (pageNum * 1 - 1), filter: filterValue, sort: sortValue},
+        beforeSend:function () {
+            $('#homePage').css("display", 'none');
+            $('#prePage').css("display", 'none');
+            $('#nextPage').css("display", 'none');
+        }
     })
         .done(function (msg) {
-            console.log(msg[0]);
+            // console.log(msg[0]);
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
             for (var i = 0; i < msg.length - 1; i++) {
@@ -52,8 +63,12 @@ $('#prePage').on("click", function () {
                 $('#nextPage').attr('data-value', '2');
                 $('#prePage').css("display", 'none');
                 $('#homePage').css("display", 'none');
+                $('#nextPage').css("display", '');
                 $('#pageNumber').text('1');
             } else {
+                $('#homePage').css("display", '');
+                $('#prePage').css("display", '');
+                $('#nextPage').css("display", '');
                 $('#prePage').attr('data-value', '' + (pageNum * 1 - 2) + '');
                 $('#nextPage').attr('data-value', '' + pageNum * 1 + '');
                 $('#pageNumber').text('' + (pageNum * 1 - 1) + '');
@@ -70,7 +85,12 @@ $('#nextPage').on("click", function () {
     $.ajax({
         method: "GET",
         url: "/pages",
-        data: {search: searchValue, idx: pageNum * 1 + 1, filter: filterValue, sort: sortValue}
+        data: {search: searchValue, idx: pageNum * 1 + 1, filter: filterValue, sort: sortValue},
+        beforeSend:function () {
+            $('#homePage').css("display", 'none');
+            $('#prePage').css("display", 'none');
+            $('#nextPage').css("display", 'none');
+        }
     })
         .done(function (msg) {
             if (msg.length > 1) {
@@ -83,11 +103,13 @@ $('#nextPage').on("click", function () {
                     str += "<td class=\'center aligned\'>" + msg[i].size + "</td></tr>";
                     $('#resultList tbody').append(str);
                 }
+                $('#nextPage').css("display", '');
                 $('#prePage').attr('data-value', '' + pageNum * 1 + '');
                 $('#nextPage').attr('data-value', '' + (pageNum * 1 + 2) + '');
                 $('#pageNumber').text('' + (pageNum * 1 + 1) + '');
                 $('#prePage').css("display", '');
                 $('#homePage').css("display", '');
+                $('#nextPage').css("display", '');
             }
             else {
                 alert('后面没有了');
@@ -141,9 +163,13 @@ $('.filterSpan').on('click', function () {
     $.ajax({
         method: "GET",
         url: "/pages",
-        data: {search: searchValue, idx: "1", filter: filterValue, sort: sortValue}
+        data: {search: searchValue, idx: "1", filter: filterValue, sort: sortValue},
+        beforeSend:function () {
+            $('.filterSpan').css("visibility","hidden");
+        }
     })
         .done(function (msg) {
+            $('.filterSpan').css("visibility","visible");
             $('#totalResult').text(msg[msg.length - 1].totalRecoders);
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
@@ -173,10 +199,14 @@ $('.sortSpan').on('click', function () {
     $.ajax({
         method: "GET",
         url: "/pages",
-        data: {search: searchValue, idx: "1", filter: filterValue, sort: sortValue}
+        data: {search: searchValue, idx: "1", filter: filterValue, sort: sortValue},
+        beforeSend:function () {
+            $('.sortSpan').css("visibility","hidden");
+        }
     })
         .done(function (msg) {
             //console.log("Data Saved: " + msg);
+            $('.sortSpan').css("visibility","visible");
             $('#totalResult').text(msg[msg.length - 1].totalRecoders);
             $('#resultList tbody').remove();
             $('#resultList').append('<tbody></tbody>');
