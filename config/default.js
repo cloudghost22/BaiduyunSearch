@@ -10,5 +10,10 @@ module.exports={
         "database":"baiduyun"
     },
     pageNumber:10,
-    mainTable:'share'
+    mainTable:'share',
+    session:{
+        secret:"baiduyunsearch",
+        key:"baiduyunsearch",
+        maxAge:600000
+    },
 };

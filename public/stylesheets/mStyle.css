@@ -11,7 +11,7 @@ em { font-style: normal;  color: #c00;  }
 .clear{clear: both;}
 .m-footer{background-color: #F5F5F5;}
 .m-footer a i{display: block;width: 35px;height: 35px;margin: 0 auto 5px;}
-.m-footer a{display:block;box-flex: 1;-webkit-box-flex: 1;text-align: center;display:block;width:30%;margin: auto}
+.m-footer a{display:block;box-flex: 1;-webkit-box-flex: 1;text-align: center;display:block;width:33%;margin: auto;float: left;}
 .m-footer-home i{background: url('../images/Home.png') center right no-repeat;background-size: 100% 100%;}
 .m-footer-phone i{background: url('../images/Phone.png') center right no-repeat;background-size: 100% 100%;}
 .m-footer-pc i{background-image: url('../images/pc.png');background-size: 100% 100%;}

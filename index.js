@@ -8,6 +8,7 @@ let pkg = require('./package.json');
 let routes = require('./routers');
 let path = require('path');
 let app = express();
+let session = require('express-session');
 
 
 // 设置模板目录
@@ -16,6 +17,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 // 设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+    name: config.session.key,// 设置 cookie 中保存 session id 的字段名称
+    secret: config.session.secret,// 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
+    resave: false,
+    saveUninitialized:true,
+    cookie: {
+        maxAge: config.session.maxAge// 过期时间，过期后 cookie 中的 session id 自动删除
+    }
+}));
 
 //设置模板全局常量
 app.locals.search = {

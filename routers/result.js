@@ -15,6 +15,11 @@ router.get('/', function (req, res) {
     let shareid = req.query.view;
     let keyword = req.query.kw;
     let userAgent = req.headers['user-agent'];
+    let session = req.session;
+    let type = req.query.type;
+    if(typeof (type) != 'undefined'){
+        session.type = type;
+    }
     // keyword = keyword.substring(0,8);
     // console.log(keyword);
     resultAll(shareid, keyword)
@@ -29,11 +34,19 @@ router.get('/', function (req, res) {
                     result[1].kw = keyword;
                 }
                 // console.log(result);
-                if (isPhone(userAgent)){
+                if(session.type == 'm'){
                     res.render('mResult', {results: result});
-                }else {
+                }else if(session.type == 'pc'){
                     res.render('result', {results: result});
-                    // res.render('mResult', {results: result});
+                }
+                else {
+
+                    if (isPhone(userAgent)){
+                        res.render('mResult', {results: result});
+                    }else {
+                        res.render('result', {results: result});
+                        // res.render('mResult', {results: result});
+                    }
                 }
 
             } else {

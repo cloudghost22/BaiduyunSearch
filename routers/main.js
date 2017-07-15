@@ -16,25 +16,33 @@ router.get('/', function (req, res, next) {
     let searchValue = req.query.search;
     let userAgent = req.headers['user-agent'];
     let host = req.headers['host'];
-    // console.log(host);
-    // if(isPhone(userAgent) &&  host != 'm.91baidupan.com'){
-    //     res.redirect(`http://m.91baidupan.com`);
-    //     // res.redirect(`http://10.15.33.70:3000`);
-    // }else{
-        if (searchValue) {
-            sphinxSearch(searchValue)
-                .then(result => {
-                    //console.log(result);
-                    if (result == 'zero') {
-                        let r = [];
-                        r.searchValue = searchValue;
-                        r.totalRecoders = 0;
-                        res.render('main', {results: r});
-                    } else {
-                        let total = result.total;
-                        result = parseAllShare(result, searchValue);
-                        result.searchValue = searchValue;
-                        result.totalRecoders = total;
+    let session = req.session;
+    let type = req.query.type;
+    if (typeof (type) != 'undefined') {
+        session.type = type;
+    }
+    // console.log(session.type);
+    if (searchValue) {
+        sphinxSearch(searchValue)
+            .then(result => {
+                //console.log(result);
+                if (result == 'zero') {
+                    let r = [];
+                    r.searchValue = searchValue;
+                    r.totalRecoders = 0;
+                    res.render('main', {results: r});
+                } else {
+                    let total = result.total;
+                    result = parseAllShare(result, searchValue);
+                    result.searchValue = searchValue;
+                    result.totalRecoders = total;
+                    //adapter pc or mobile phone
+                    if (session.type == 'm') {
+                        res.render('mMain', {results: result});
+                    } else if (session.type == 'pc') {
+                        res.render('main', {results: result});
+                    }
+                    else {
                         if (isPhone(userAgent)) {
                             res.render('mMain', {results: result});
                         }
@@ -42,29 +50,30 @@ router.get('/', function (req, res, next) {
                             res.render('main', {results: result});
                             // res.render('mMain', {results: result});
                         }
-
                     }
+                }
 
-                });
-        } else {
-            mainAll().then((result) => {
-                // console.log(result);
-                result[1] = parseAllShare(result[1], '');
+            });
+    } else {
+        mainAll().then((result) => {
+            result[1] = parseAllShare(result[1], '');
+            if (session.type == 'm') {
+                res.render('mMain', {hots: result});
+            } else if (session.type == 'pc') {
+                res.render('main', {hots: result});
+            }
+            else {
                 if (isPhone(userAgent)) {
                     res.render('mMain', {hots: result});
                 }
                 else {
                     res.render('main', {hots: result});
-                    // res.render('mMain', {hots: result});
+                    // res.render('mMain', {results: result});
                 }
+            }
+        });
 
-            });
-
-        }
-    // }
-    // console.log(searchValue);
-
-
+    }
 });
 
 router.post('/', function (req, res, next) {
