@@ -79,7 +79,7 @@ let changeColor = function (searchValue,title) {
     let titleArr = [...title];
     for(let i of searchArr){
         for(let j=0;j<titleArr.length;j++){
-            if(i == titleArr[j]){
+            if(i.toLowerCase() == titleArr[j].toLowerCase()){
                 titleArr[j] = `<em>${titleArr[j]}</em>`;
             }
         }
