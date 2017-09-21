@@ -15,10 +15,14 @@ router.get('/',(req,res)=>{
             if (result.length > 0) {
                 let parseResult = parseShare(result);
                 let baiduyunShare;
-                if(!type){
-                    baiduyunShare = `https://pan.baidu.com/share/link?uk=${parseResult.uk}&third=0&shareid=${parseResult.shareid}`;
-                }else {
-                    baiduyunShare = `https://pan.baidu.com/wap/link?uk=${parseResult.uk}&third=0&shareid=${parseResult.shareid}`;
+                if(parseResult.shorturl){
+                    baiduyunShare = `https://pan.baidu.com/wap/album/file?uk=${parseResult.uk}&album_id=${parseResult.shorturl}&fsid=${parseResult.shareid}`;        
+                }else{
+                    if(!type){
+                        baiduyunShare = `https://pan.baidu.com/share/link?uk=${parseResult.uk}&third=0&shareid=${parseResult.shareid}`;
+                    }else {
+                        baiduyunShare = `https://pan.baidu.com/wap/link?uk=${parseResult.uk}&third=0&shareid=${parseResult.shareid}`;
+                    }
                 }
                 res.redirect(baiduyunShare);
             } else {

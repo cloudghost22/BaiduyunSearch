@@ -17,6 +17,8 @@ let parseShare = function (json) {
     tempJson.size = json[0].isdir == 0 ? bit2Size(json[0].size) : '--';
     tempJson.shareid = json[0].shareid;
     tempJson.uk = json[0].uk;
+    //album link
+    tempJson.shorturl = json[0].shorturl;
     // console.log(tempJson);
     return tempJson;
 };
