@@ -198,11 +198,15 @@ a:hover {
     text-align: center;
 }
 
-#pagesDiv, #shareDiv {
+#pagesDiv{
     width: 80%;
     margin: 0 auto;
 }
-
+#shareDiv 
+{
+    width: 70%;
+    margin: 0 auto;
+}
 #menuDiv {
     width: 80%;
     margin-left: auto;
