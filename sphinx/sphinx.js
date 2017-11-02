@@ -40,10 +40,10 @@ let sphinxSearch = function (str,idx=1,filter=9,sort=1,getNumber=0,recommand=0) 
         sphinx.SetLimits(offset,config.pageNumber);
     }
 
-    // console.log(sphinx);
+     console.log('sphinx:'+sphinx);
     sphinx.Query(convertQueryStr(str,recommand),(err,result)=>{
         if(err) throw err;
-         // console.log(result);
+        console.log('sphinx result:'+result);
         // console.log(result.matches.length);
         if(result.matches.length > 0 && result.total_found >0){
             sSearch(getIdsFromResult(result))
@@ -104,7 +104,7 @@ let convertQueryStr = function (queryString,recommand) {
         }
     }
 
-    // console.log(qStringArr);
+    console.log('分词结果：'+qStringArr);
     return qStringArr;
 };
 
