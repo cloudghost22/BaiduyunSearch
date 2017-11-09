@@ -14,7 +14,7 @@ let q = require('q');
 
 router.get('/', function (req, res, next) {
     let searchValue = req.query.search;
-    console.log('search value:'+searchValue);
+    // console.log('search value:'+searchValue);
     let userAgent = req.headers['user-agent'];
     let host = req.headers['host'];
     let session = req.session;
@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
     if (searchValue) {
         sphinxSearch(searchValue)
             .then(result => {
-                console.log(result);
+                // console.log(result);
                 if (result == 'zero') {
                     let r = [];
                     r.searchValue = searchValue;

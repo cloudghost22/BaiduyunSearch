@@ -112,7 +112,7 @@ let sphinxSearch = function (idArr) {
     let deferred = q.defer();
     //let searchValueStr = convertQueryStr(searchValue);
     let queryStr = `select * from ${config.mainTable} where id in (${idArr});`;
-    console.log('queryStr'+queryStr)
+    // console.log('queryStr'+queryStr)
     pool.getConnection((err, conn) => {
         "use strict";
         if (err) deferred.reject(err);
