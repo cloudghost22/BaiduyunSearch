@@ -85,7 +85,10 @@ router.post('/', function (req, res, next) {
 
 
 let mainAll = function () {
-    return q.all([getHot(), sphinxSearch('', 1, 9, 1, 30, 0)]);
+    let date = new Date();
+    let d = date.getFullYear()*10000+date.getMonth()*100+date.getDate();
+    // console.log(d);
+    return q.all([getHot(), sphinxSearch('', (d-20171102), 9, 1, 30, 0)]);
 };
 
 module.exports = router;

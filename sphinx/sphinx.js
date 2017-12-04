@@ -104,7 +104,7 @@ let convertQueryStr = function (queryString,recommand) {
         }
     }
 
-    console.log('分词结果：'+qStringArr);
+    // console.log('分词结果：'+qStringArr);
     return qStringArr;
 };
 
