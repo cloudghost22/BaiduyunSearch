@@ -1,2 +1,2 @@
-//lrs cpv 320*270
-document.write('<script src="http://wm.lrswl.com/page/?s=254775"></script>');
+//lrs cpv 250*250
+document.write('<script src="http://js.eeeqi.cn/page/?s=47680"></script>');
